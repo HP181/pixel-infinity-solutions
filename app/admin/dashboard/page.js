@@ -123,9 +123,9 @@ const TableComponent = () => {
     }
 
     setDisable(false);
-    await getData();
+ await getData();
     // await send
-
+console.log("dddsqwd");
     return toast.success(res.message, { id: notification });
 
   };
