@@ -57,7 +57,7 @@ const TableComponent = () => {
     const getDataNotification = toast.loading("Loading...");
 
     const data = await fetch("/api/getAppointments", {
-      cache : "no-cache"
+      cache : "no-store"
     }
      );
 
@@ -83,8 +83,6 @@ const TableComponent = () => {
     getData();
   }, []);
 
-  useEffect(() => {
-  }, [data]);
 
   const handleDateChange = (id, newDate) => {
     setData((prevData) => {
