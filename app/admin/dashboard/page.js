@@ -56,9 +56,7 @@ const TableComponent = () => {
   const getData = async () => {
     const getDataNotification = toast.loading("Loading...");
 
-    const data = await fetch("/api/getAppointments", {
-      cache : "no-store"
-    }
+    const data = await fetch("/api/getAppointments"
      );
 
     const response = await data.json();
@@ -81,7 +79,7 @@ const TableComponent = () => {
 
   useEffect(() => {
     getData();
-  }, []);
+  });
 
 
   const handleDateChange = (id, newDate) => {
