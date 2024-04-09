@@ -17,3 +17,5 @@ export async function GET() {
 
   return NextResponse.json({ status: "fetched", message: getAllAppointments }, { status: 201 });
 }
+
+export const dynamic = "force-dynamic";

@@ -369,4 +369,5 @@ console.log("dddsqwd");
   );
 };
 
+export const dynamic = "force-dynamic";
 export default TableComponent;
