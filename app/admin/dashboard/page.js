@@ -58,6 +58,7 @@ const TableComponent = () => {
 
     const data = await fetch("/api/getAppointment", {
       cache: "no-store",
+      next : {revalidate : 5},
       method: "GET",
       headers: {
         "Content-Type": "application/json",

@@ -3,7 +3,7 @@ import Connection from "@/lib/Connection";
 import Appointment from "@/lib/schema/AppointmentSchema";
 import { NextResponse } from "next/server";
 
-export async function GET(request) {
+export async function GET() {
   await Connection();
 
   const getAllAppointments = await Appointment.find({}).select('-createdAt -updatedAt -__v')
