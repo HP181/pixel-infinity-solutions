@@ -57,12 +57,9 @@ const TableComponent = () => {
     const getDataNotification = toast.loading("Loading...");
 
     const data = await fetch("/api/getAppointments", {
-      cache: "no-store",
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+      cache : "no-store"
+    }
+     );
 
     const response = await data.json();
 
