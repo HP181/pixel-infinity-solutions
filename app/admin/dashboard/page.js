@@ -79,7 +79,7 @@ const TableComponent = () => {
 
   useEffect(() => {
     getData();
-  });
+  }, []);
 
 
   const handleDateChange = (id, newDate) => {
