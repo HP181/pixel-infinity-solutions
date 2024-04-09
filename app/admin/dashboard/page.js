@@ -123,7 +123,37 @@ const TableComponent = () => {
     }
 
     setDisable(false);
- await getData();
+
+
+
+
+
+
+
+    const datas = await fetch("/api/getAppointments"
+     );
+
+    const responsee = await datas.json();
+
+    if (datas.status !== 201) {
+      throw new Error("Network response was not ok");
+    }
+
+
+    const dataWithIdss = responsee?.message.map((item, index) => ({
+      ...item,
+      id: index + 1,
+    }));
+
+    setData(dataWithIdss);
+    setLoading(false);
+
+
+
+
+
+
+
     // await send
 console.log("dddsqwd");
     return toast.success(res.message, { id: notification });
