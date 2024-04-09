@@ -1,4 +1,3 @@
-"use server"
 import Connection from "@/lib/Connection";
 import Appointment from "@/lib/schema/AppointmentSchema";
 import { NextResponse } from "next/server";
