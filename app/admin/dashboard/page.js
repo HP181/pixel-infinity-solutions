@@ -56,7 +56,7 @@ const TableComponent = () => {
   const getData = async () => {
     const getDataNotification = toast.loading("Loading...");
 
-    const data = await fetch("/api/getAppointments", {
+    const data = await fetch("/api/getAppointment", {
       cache: "no-store",
       method: "GET",
       headers: {
