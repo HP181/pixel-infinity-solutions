@@ -1,6 +1,6 @@
 const Technologies = () => {
   return (
-    <div className="xs:mt-[5em] xxs:mt-[4em]">
+    <div className="mt-10">
       <h1 className=" text-center font-bold sm:mt-[4em]  md:mt-32  text-4xl underline underline-offset-[16] mb-10 ">
         our expertise
       </h1>

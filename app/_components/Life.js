@@ -2,9 +2,9 @@
 const Life = () => {
   return (
     <>
-      <section className="text-gray-600 body-font  xs:mt-24 xxs:mt-32 sm:mt-28 md:mt-28">
+      <section className="text-gray-600 body-font mt-10 sm:mt-28 md:mt-28 m-0">
         <div
-          className="flex justify-center items-center xs:flex-col xs:w-full xs:h-full  xxs:flex-col xxs:w-full xxs:h-full              sm:flex-col sm:w-full sm:h-full  lg:container lg:px-5 lg:py-24 lg:mx-auto "
+          className="flex justify-center items-center  flex-col sm:flex-col sm:w-full sm:h-full  lg:container lg:px-5 lg:py-24 lg:mx-auto "
           bis_skin_checked={1}
         >
           <div className="text-center " bis_skin_checked={1}>
@@ -14,7 +14,7 @@ const Life = () => {
           </div>
 
           <div
-            className="flex flex-wrap lg:w-3/5 sm:mx-auto sm:mb-2 -mx-2  p-8"
+            className="flex flex-wrap lg:w-3/5 sm:mx-auto sm:mb-2   p-8"
             bis_skin_checked={1}
           >
             <div className="p-2 sm:w-1/2  w-full" bis_skin_checked={1}>
@@ -142,6 +142,7 @@ const Life = () => {
               </div>
             </div>
           </div>
+
         </div>
       </section>
     </>

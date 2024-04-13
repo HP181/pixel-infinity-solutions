@@ -18,7 +18,7 @@ const page = () => {
             </p>
           </div>
           <div className="flex flex-wrap">
-            <div className="xl:w-1/4 lg:w-1/2 md:w-full px-8 py-6 border-l-2 border-gray-200 border-opacity-60">
+            <div className="xl:w-1/4 lg:w-1/2 md:w-full px-8 py-6  border-gray-200 border-opacity-60">
               <h2 className=" text-center text-lg sm:text-xl text-gray-900 font-bold title-font mb-4">
                 Website Development
               </h2>
@@ -26,7 +26,7 @@ const page = () => {
                 we create and maintain Web application for your business.
               </p>
             </div>
-            <div className="xl:w-1/4 lg:w-1/2 md:w-full px-8 py-6 border-l-2 border-gray-200 border-opacity-60">
+            <div className="xl:w-1/4 lg:w-1/2 md:w-full px-8 py-6  border-gray-200 border-opacity-60 lg:border-l-2">
               <h2 className=" text-center text-lg sm:text-xl text-gray-900 font-bold title-font mb-4">
                 Software Development
               </h2>
@@ -35,7 +35,7 @@ const page = () => {
                 supports softwares that meet your needs.
               </p>
             </div>
-            <div className="xl:w-1/4 lg:w-1/2 md:w-full px-8 py-6 border-l-2 border-gray-200 border-opacity-60">
+            <div className="xl:w-1/4 lg:w-1/2 md:w-full px-8 py-6  border-gray-200 border-opacity-60">
               <h2 className="text-lg sm:text-xl text-center text-gray-900 font-bold title-font mb-2">
                 E-Commerce Development
               </h2>
@@ -45,7 +45,7 @@ const page = () => {
                 your project on time and maintain quality.
               </p>
             </div>
-            <div className="xl:w-1/4 lg:w-1/2 md:w-full px-8 py-6 border-l-2 border-gray-200 border-opacity-60">
+            <div className="xl:w-1/4 lg:w-1/2 md:w-full px-8 py-6 border-gray-200 border-opacity-60 lg:border-l-2">
               <h2 className="text-lg sm:text-xl text-gray-900 font-bold title-font mb-2 text-center">
                 Website Disging
               </h2>

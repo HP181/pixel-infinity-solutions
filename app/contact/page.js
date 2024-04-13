@@ -52,7 +52,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="xxs:mt-10">
+    <div className="mt-10">
       <section className="text-gray-600 body-font bg-slate-50 relative ">
         <div className="container px-5 py-8 mx-auto">
           <div className="flex flex-col text-center w-full mb-12">

@@ -47,7 +47,7 @@ const Navbar = () => {
               Home
             </Link>
 
-            <Link href="#" className="mr-5  text-xl text-black font-bold">
+             <Link href="#" className="mr-5  text-xl text-black font-bold">
               <div>
                 <Popover className="relative">
                   {({ open }) => (
@@ -123,7 +123,7 @@ const Navbar = () => {
                   )}
                 </Popover>
               </div>
-            </Link>
+            </Link> 
 
             <Link
               href="#"
@@ -154,7 +154,6 @@ const Navbar = () => {
                         <Popover.Panel className="absolute  z-10 mt-3 w-72 xs:left-32    sm:left-28 max-w-sm -translate-x-1/2 transform px-4 sm:px-0  lg:max-w-3xl">
                           <div className="overflow-hidden rounded-lg shadow-xl ring-1 ring-black ring-opacity-5">
                             <div className="relative grid gap-4 bg-white p-4 lg:grid-cols-1 scrollbar-hide">
-                              {/* 1 */}
                               <Link
                                 href="#"
                                 className="p-0 flex items-center rounded-lg  transition duration-150 ease-in-out  focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
@@ -170,7 +169,6 @@ const Navbar = () => {
                                       <p className="font-semibold">ANGULAR</p>
                                       <p className="font-semibold">NEXT JS</p>
                                     </div>
-                                    {/* </div> */}
                                   </div>
 
                                   <div>
@@ -240,6 +238,7 @@ const Navbar = () => {
                 </Popover>
               </div>
             </Link>
+            
             <Link
               href="/portfolio"
               className="mr-5 hover:text-blue-500 text-xl text-black font-semibold"
