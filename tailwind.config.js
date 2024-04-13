@@ -9,16 +9,11 @@ module.exports = {
   ],
   prefix: "",
   theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        // 'xs': {'min': '310px', 'max': '348px'},
-        // 'xxs': {'min': '348px', 'max': '640px'},
-        "2xl": "1400px",
-      }
-    },
     extend: {
+      screens: {
+        'mobile': {'max': '800px'},  // Targets screens 782px wide and below
+        'desktop': '801px',           // Targets screens wider than 782px
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
