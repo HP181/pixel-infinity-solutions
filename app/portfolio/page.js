@@ -92,7 +92,7 @@ const Portfolio = () => {
       </section>
 
       <Modal show={openModal} onClose={() => setOpenModal(false)} size="5xl">
-        <Modal.Header>Images</Modal.Header>
+        <Modal.Header>Demo</Modal.Header>
         <Modal.Body className="scrollbar-hide flex justify-center gap-0 m-0 p-2">
           <div className="space-y-6">
            {data[id]?.url.map((item, index) => (

@@ -217,7 +217,9 @@ const LoggedInNavbar = () => {
                         ? "text-blue-500 block px-3 py-2 rounded-md text-lg font-bold hover:underline"
                         : "text-black block px-3 py-2 rounded-md text-lg font-bold hover:text-blue-500 hover:underline transition-all duration-150 ease-in-out"
                     }
-                  ></Link>
+                  >
+                    Book Appointment
+                  </Link>
 
                   <Button className="p-0">
                     <LogoutLink className="h-9 px-4 py-2 rounded-[4px] underline">
