@@ -63,19 +63,19 @@ const Contact = () => {
               Any Questions.We would to hear from you.
             </p>
           </div>
-          <div className=" xs:w-full lg:w-1/2 md:w-2/3 mx-auto">
+          <div className="max-w-xl mx-auto">
             <form
               type="submit"
               onSubmit={handleSubmit}
-              className="flex flex-wrap -m-2"
+              className="flex flex-col -m-2"
             >
-              <div className="p-2 xs:w-full xxs:w-1/2 w-1/2">
-                <div className="relative">
+              <div className="p-2 w-full">
+                <div className="">
                   <label
                     htmlFor="name"
-                    className="leading-7 text-sm text-gray-600"
+                    className="leading-7 text-sm text-gray-600 w-28"
                   >
-                    Name
+                   <p> Name<span className="text-red-500">*</span></p> 
                   </label>
                   <input
                     type="text"
@@ -88,13 +88,13 @@ const Contact = () => {
                   />
                 </div>
               </div>
-              <div className="p-2 xs:w-full  xxs:w-1/2 w-1/2">
-                <div className="relative">
+              <div className="p-2 w-full">
+                <div className="relative ">
                   <label
                     htmlFor="email"
-                    className="leading-7 text-sm text-gray-600"
+                    className="leading-7 text-sm text-gray-600 w-28"
                   >
-                    <span className="pt-44">Email</span>
+                   <p>Email<span className="text-red-500">*</span></p>
                   </label>
                   <input
                     type="email"
@@ -108,12 +108,12 @@ const Contact = () => {
                 </div>
               </div>
               <div className="p-2 w-full">
-                <div className="relative">
+                <div className="relative ">
                   <label
                     htmlFor="message"
-                    className="leading-7 text-sm text-gray-600"
+                    className="leading-7 text-sm text-gray-600 w-28"
                   >
-                    Message
+                    <p>Message<span className="text-red-500">*</span></p>
                   </label>
                   <textarea
                     id="message"

@@ -5,6 +5,7 @@ import Link from "next/link";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import toast from "react-hot-toast";
+import Image from "next/image";
 
 
 
@@ -65,10 +66,8 @@ const BookAppointment = () => {
   };
 
   return (
-    <div className="flex flex-wrap mb-12">
-      {/* Form Section */}
-      <div className="w-full md:w-1/2">
-        <div className="bg-white  p-8 rounded-lg shadow-lg md:ml-8">
+    <div className="max-w-6xl m-auto mb-12">
+        <div className="bg-white  p-8 rounded-lg shadow-lg">
           <h2 className="text-2xl font-semibold mb-4 text-center md:text-left">
             Book An Appointment with <br />
             <span className="text-3xl font-bold mb-4">PixelInfinity</span>
@@ -79,9 +78,9 @@ const BookAppointment = () => {
               <h1 className="text-center font-semibold text-[#cccccc] sm:text-left">
                 Address
               </h1>
-              <p>59 Hayden St Unit</p>
-              <p>400, Toronto, ON</p>
-              <p>M4Y 2P2</p>
+              <p className="text-center sm:text-left">59 Hayden St Unit</p>
+              <p className="text-center sm:text-left">400, Toronto, ON</p>
+              <p className="text-center sm:text-left">M4Y 2P2</p>
             </div>
             <div>
               <p className="text-center font-semibold text-[#cccccc] sm:text-left">
@@ -109,7 +108,7 @@ const BookAppointment = () => {
                   htmlFor="name"
                   className="leading-7 text-sm text-gray-600"
                 >
-                  Name
+                  <p>Name<span className="text-red-500">*</span></p>
                 </label>
                 <input
                   type="text"
@@ -128,7 +127,7 @@ const BookAppointment = () => {
                   htmlFor="email"
                   className="leading-7 text-sm text-gray-600"
                 >
-                  <span className="pt-44">Email</span>
+                  <p>Email <span className="text-red-500">*</span></p>
                 </label>
                 <input
                   type="email"
@@ -148,7 +147,7 @@ const BookAppointment = () => {
                   htmlFor="appointment"
                   className="leading-7 text-sm text-gray-600"
                 >
-                  <span className="">Appointment</span>
+                  <p>Appointment <span className="text-red-500">*</span></p>
                 </label>
 
                 <DatePicker
@@ -156,6 +155,7 @@ const BookAppointment = () => {
                   onChange={(date) => setStartDate(date)}
                   className="w-[100%] bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out "
                   minDate={new Date()}
+                  required
                   dateFormat="dd/MM/yyyy"
                   placeholderText="Select Date For Appointment"
                   id="appointment"
@@ -169,7 +169,7 @@ const BookAppointment = () => {
                   htmlFor="subject"
                   className="leading-7 text-sm text-gray-600"
                 >
-                  <span className="">Subject</span>
+                  <p>Subject <span className="text-red-500">*</span></p>
                 </label>
                 <input
                   type="text"
@@ -189,13 +189,14 @@ const BookAppointment = () => {
                   htmlFor="desc"
                   className="leading-7 text-sm text-gray-600"
                 >
-                  Short Description
+                  <p>Short Description <span className="text-red-500">*</span></p>
                 </label>
                 <textarea
                   id="message"
                   name="desc"
                   value={Data.desc}
                   onChange={handleInput}
+                  required
                   className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
                 />
               </div>
@@ -263,15 +264,6 @@ const BookAppointment = () => {
             </div>
           </form>
         </div>
-      </div>
-
-      {/* Image Section */}
-      <div className="hidden md:block md:w-1/2 pr-8">
-        <div
-          className="bg-cover bg-center h-full rounded-lg object-fill"
-          style={{ backgroundImage: "url(/img.png)" }}
-        ></div>
-      </div>
     </div>
 
 
