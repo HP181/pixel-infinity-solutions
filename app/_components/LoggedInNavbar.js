@@ -24,7 +24,7 @@ const LoggedInNavbar = () => {
           bis_skin_checked={1}
         >
           <Link
-            href="/"
+            href="/admin/dashboard"
             className="flex font-medium items-center text-black mb-4 md:mb-0"
           >
             <Image
