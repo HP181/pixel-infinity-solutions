@@ -79,7 +79,7 @@ const Portfolio = () => {
             </div>
             <div className="mx-auto grid max-w-5xl items-center gap-6 lg:order-last lg:gap-10 border-black">
               <Image
-                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center shadow-lg shadow-blue-400 hover:scale-105 transition-all duration-150 ease-in-out"
+                className="mx-auto aspect-video overflow-hidden rounded-xl cursor-pointer object-cover object-center shadow-lg shadow-blue-400 hover:scale-105 transition-all duration-150 ease-in-out"
                 src={data[2].url[0]}
                 height="900"
                 width="900"
