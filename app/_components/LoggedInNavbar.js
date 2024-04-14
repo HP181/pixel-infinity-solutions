@@ -162,7 +162,7 @@ const LoggedInNavbar = () => {
               <nav className="desktop:hidden" id="mobile-menu">
                 <div
                   ref={ref}
-                  className=" px-2 pt-2 pb-20 mt-5 gap-6 sm:px-3 flex justify-center items-center flex-col h-[100vh]"
+                  className=" px-2 pt-2 pb-20 mt-5 gap-6 sm:px-3 flex justify-center items-center flex-col"
                 >
                   <Link
                     href="/"
