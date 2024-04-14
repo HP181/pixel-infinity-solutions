@@ -108,7 +108,7 @@ const LoggedInNavbar = () => {
               <div className="flex items-center">
                 <div className="flex-shrink-0">
                   <Link
-                    href="/"
+                    href="/admin/dashboard"
                     className="flex font-bold items-center text-black  md:mb-0"
                   >
                     <Image
