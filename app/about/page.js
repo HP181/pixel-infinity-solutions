@@ -2,7 +2,7 @@ import React from 'react'
 
 const page = () => {
   return (
-    <section className="text-gray-600 body-font">
+    <section className="text-gray-600 body-font max-w-6xl m-auto">
         <div className="  px-5 py-14 mx-auto">
           <div className=" flex flex-col text-center  w-full mb-20">
             <h1 className="sm:text-3xl sm:text-center text-2xl font-bold title-font mb-4 text-gray-900">

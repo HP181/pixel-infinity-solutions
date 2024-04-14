@@ -3,7 +3,7 @@ import Image from "next/image";
 const Skills = () => {
   return (
     <>
-      <div className="h-full bg-slate-50  mt-10 sm:mt-16 ">
+      <div className="h-full bg-slate-50 rounded-lg mt-10 sm:mt-16 ">
         <p className="text-center pt-10 text-4xl  font-bold">Our Skills</p>
         <div className="grid  xxs:grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5  m-10 h-full justify-evenly  place-items-center gap-y-12">
           <div className="h-44 w-44  flex flex-col items-center justify-center">

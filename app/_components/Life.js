@@ -9,7 +9,7 @@ const Life = () => {
         >
           <div className="text-center " bis_skin_checked={1}>
             <h1 className="sm:text-3xl text-2xl  text-center title-font font-bold text-gray-900">
-              A DAY AT CODEBUCKS
+              A DAY AT PIXEL INFINITY SOLUTIONS
             </h1>
           </div>
 

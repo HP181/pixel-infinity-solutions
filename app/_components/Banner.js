@@ -16,7 +16,7 @@ const Banner = () => {
           <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
             <div className="flex flex-col justify-center">
               <div>
-                <h1 className="text-3xl text-center font-sans tracking-tighter sm:text-5xl xl:text-5xl/none h-28 sm:h-40 md:h-28 lg:h-40">
+                <h1 className="text-3xl text-center font-sans tracking-tighter sm:text-4xl/none xl:text-4xl/none h-32 sm:h-24 md:h-24 lg:h-28">
                   {text}
                   <span>
                     <Cursor cursorColor="black" />

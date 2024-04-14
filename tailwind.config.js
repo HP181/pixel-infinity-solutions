@@ -11,8 +11,8 @@ module.exports = {
   theme: {
     extend: {
       screens: {
-        'mobile': {'max': '800px'},  // Targets screens 782px wide and below
-        'desktop': '801px',           // Targets screens wider than 782px
+        'mobile': {'max': '1000px'},  // Targets screens 782px wide and below
+        'desktop': '1000px',           // Targets screens wider than 782px
       },
       colors: {
         border: "hsl(var(--border))",

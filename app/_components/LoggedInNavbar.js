@@ -8,10 +8,10 @@ import Link from "next/link";
 import { useRef } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { LoginLink } from "@kinde-oss/kinde-auth-nextjs/components";
+import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import { usePathname } from "next/navigation";
 
-const LoggedOutNavbar = () => {
+const LoggedInNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
   const ref = useRef();
@@ -91,9 +91,9 @@ const LoggedOutNavbar = () => {
             </Link>
 
             <Button className="m-0 p-0">
-              <LoginLink className={pathname === '/admin/dashboard' ? 'h-9 px-4 py-2 rounded-[4px] underline' : 'h-9 px-4 py-2 rounded-[4px] hover:underline transition-all duration-150 ease-in-out'}>
-                Admin Login
-              </LoginLink>
+              <LogoutLink className="h-9 px-4 py-2 rounded-[4px] underline">
+                Logout
+              </LogoutLink>
             </Button>
           </nav>
         </div>
@@ -220,9 +220,9 @@ const LoggedOutNavbar = () => {
                   ></Link>
 
                   <Button className="p-0">
-                    <LoginLink className={pathname === '/admin/dashboard' ? 'h-9 px-4 py-2 rounded-[4px] underline' : 'h-9 px-4 py-2 rounded-[4px] hover:underline transition-all duration-150 ease-in-out'}>
-                      Admin Login
-                    </LoginLink>
+                    <LogoutLink className="h-9 px-4 py-2 rounded-[4px] underline">
+                      Logout
+                    </LogoutLink>
                   </Button>
                 </div>
               </nav>
@@ -234,4 +234,4 @@ const LoggedOutNavbar = () => {
   );
 };
 
-export default LoggedOutNavbar;
+export default LoggedInNavbar;

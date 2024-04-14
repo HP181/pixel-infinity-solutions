@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 
 
 
-const BookApointment = () => {
+const BookAppointment = () => {
   const [Data, setData] = useState({
     name: "",
     email: "",
@@ -280,4 +280,4 @@ const BookApointment = () => {
   );
 };
 
-export default BookApointment;
+export default BookAppointment;
