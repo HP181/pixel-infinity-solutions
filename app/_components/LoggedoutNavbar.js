@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useRef } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { LoginLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs/components";
+import { LoginLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import { usePathname } from "next/navigation";
 
 const LoggedOutNavbar = () => {
@@ -101,7 +101,6 @@ const LoggedOutNavbar = () => {
                 Admin Login
               </LoginLink>
             </Button>
-            <RegisterLink>Sign up</RegisterLink>
           </nav>
         </div>
       </header>
