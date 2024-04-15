@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Banner from "./_components/Banner";
 import Technologies from "./_components/Technologies";
 import Life from "./_components/Life";

@@ -109,6 +109,7 @@ const LoggedInNavbar = () => {
                 <div className="flex-shrink-0">
                   <Link
                     href="/admin/dashboard"
+                    onClick={() => setIsOpen(false)}
                     className="flex font-bold items-center text-black  md:mb-0"
                   >
                     <Image
