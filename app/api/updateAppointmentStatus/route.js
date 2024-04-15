@@ -58,9 +58,10 @@ export async function POST(request) {
       : (subject = "Appointment Rejection");
 
     const mailOptions = {
-      from: "hkp63546@gmail.com",
+      from: '"Pixel Infinity Solutions" <hit98987@gmail.com>',
       to: email,
       subject: subject,
+      text : "Pixel Infinity Solutions",
       html: `
             <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #ecf0f1; color: #000000 !important;">
 
