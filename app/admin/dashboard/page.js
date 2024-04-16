@@ -38,55 +38,57 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import getAppointments from "@/action/getAppointments";
 
 const TableComponent = () => {
   const [data, setData] = useState([]);
   const [Disable, setDisable] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [columnVisibility, setColumnVisibility] = useState({});
   const [columnFilters, setColumnFilters] = useState([]);
   const [rowSelection, setRowSelection] = useState({});
   const [sorting, setSorting] = useState([]);
   const [status, setStatus] = useState("");
 
+  // const getData = async () => {
+  //   const getDataNotification = toast.loading("Loading...");
 
+  //   const data = await fetch("/api/getAppointment", {
+  //     cache: "no-store",
+  //     next : {revalidate : 5},
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   }
+  //    );
 
+  //   const response = await data.json();
+
+  //   if (data.status !== 201) {
+  //     toast.error(response?.error, { id: getDataNotification });
+  //     throw new Error("Network response was not ok");
+  //   }
+
+  //   toast.success(response?.status, { id: getDataNotification });
+
+  //   const dataWithIds = response?.message.map((item, index) => ({
+  //     ...item,
+  //     id: index + 1,
+  //   }));
+
+  //   setData(dataWithIds);
+  //   setLoading(false);
+  // };
 
   const getData = async () => {
-    const getDataNotification = toast.loading("Loading...");
-
-    const data = await fetch("/api/getAppointment", {
-      cache: "no-store",
-      next : {revalidate : 5},
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-     );
-
-    const response = await data.json();
-
-    if (data.status !== 201) {
-      toast.error(response?.error, { id: getDataNotification });
-      throw new Error("Network response was not ok");
-    }
-
-    toast.success(response?.status, { id: getDataNotification });
-
-    const dataWithIds = response?.message.map((item, index) => ({
-      ...item,
-      id: index + 1,
-    }));
-
-    setData(dataWithIds);
-    setLoading(false);
+    const { message } = await getAppointments();
+    setData(message);
   };
 
-  useEffect(  () => {
+  useEffect(() => {
     getData();
   }, []);
-
 
   const handleDateChange = (id, newDate) => {
     setData((prevData) => {
@@ -129,12 +131,9 @@ const TableComponent = () => {
     }
 
     setDisable(false);
-    
- await getData();
-    // await send
-console.log("dddsqwd");
-    return toast.success(res.message, { id: notification });
 
+    await getData();
+    return toast.success(res.message, { id: notification });
   };
 
   const columns = [
