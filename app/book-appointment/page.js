@@ -1,69 +1,40 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
+import { useFormStatus } from "react-dom";
 import Link from "next/link";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import toast from "react-hot-toast";
-import Image from "next/image";
-
+import BookAppointments from "@/action/BookAppointments";
 
 
 
 const BookAppointment = () => {
-  const [Data, setData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    desc: "",
-  });
+
   const [startDate, setStartDate] = useState(new Date());
-  const [Disable, setDisable] = useState(false);
+  const ref = useRef();
 
-  const handleInput = (e) => {
-    let name, value;
+  function Submit() {
+    const { pending } = useFormStatus();
 
-    e.preventDefault();
-    name = e.target.name;
-    value = e.target.value;
+    return (
+      <button
+        type="submit"
+        disabled={pending}
+        className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg disabled:cursor-wait disabled:bg-indigo-300"
+      >
+        {" "}
+        {pending ? (
+          <div className="h-5 w-5 animate-spin rounded-full border-b-2 border-white"></div>
+        ) : (
+          "Submit"
+        )}{" "}
+      </button>
+    );
+  }
 
-    setData({ ...Data, [name]: value });
-  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    setDisable(true);
-
-    const notification = toast.loading("Loading...");
-
-    const data = await fetch("/api/bookappointment", {
-      method: "POST",
-      cache: "no-cache",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: Data.name,
-        email: Data.email,
-        date: startDate,
-        subject: Data.subject,
-        desc: Data.desc,
-      }),
-    });
-
-    const res = await data.json();
-
-    if (data?.status !== 201) {
-      setDisable(false);
-      setData({ name: "", email: "", subject: "", desc: "" });
-      return toast.error(res.error, { id: notification });
-    }
-
-    setDisable(false);
-    setData({ name: "", email: "", subject: "", desc: "" });
-    return toast.success(res.message, { id: notification });
-  };
 
   return (
     <div className="max-w-6xl m-auto mb-12">
@@ -99,7 +70,21 @@ const BookAppointment = () => {
           </div>
           <form
             type="submit"
-            onSubmit={handleSubmit}
+            ref={ref}
+            action={async (formData, e) => {
+              const { message, status, error } = await BookAppointments(
+                formData,
+                e
+              );
+
+              if (error || status !== 201) {
+                ref.current.reset();
+                return toast.error(error);
+              }
+
+              ref.current.reset();
+              return toast.success(message);
+            }}
             className="flex flex-wrap -m-2 mt-8"
           >
             <div className="p-2 w-full sm:w-1/2">
@@ -114,8 +99,6 @@ const BookAppointment = () => {
                   type="text"
                   id="name"
                   name="name"
-                  value={Data.name}
-                  onChange={handleInput}
                   required
                   className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                 />
@@ -133,8 +116,6 @@ const BookAppointment = () => {
                   type="email"
                   id="email"
                   name="email"
-                  value={Data.email}
-                  onChange={handleInput}
                   required
                   className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 jease-in-out"
                 />
@@ -144,7 +125,7 @@ const BookAppointment = () => {
             <div className="p-2 w-full sm:w-1/2">
               <div className="relative flex flex-col ">
                 <label
-                  htmlFor="appointment"
+                  htmlFor="date"
                   className="leading-7 text-sm text-gray-600"
                 >
                   <p>Appointment <span className="text-red-500">*</span></p>
@@ -153,6 +134,8 @@ const BookAppointment = () => {
                 <DatePicker
                   selected={startDate}
                   onChange={(date) => setStartDate(date)}
+                  name="date"
+                  value={startDate}
                   className="w-[100%] bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out "
                   minDate={new Date()}
                   required
@@ -175,8 +158,6 @@ const BookAppointment = () => {
                   type="text"
                   id="subject"
                   name="subject"
-                  value={Data.subject}
-                  onChange={handleInput}
                   required
                   className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                 />
@@ -194,23 +175,16 @@ const BookAppointment = () => {
                 <textarea
                   id="message"
                   name="desc"
-                  value={Data.desc}
-                  onChange={handleInput}
                   required
                   className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
                 />
               </div>
             </div>
             <div className="p-2 w-full">
-              <button
-                className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg disabled:cursor-wait disabled:bg-indigo-300"
-                disabled={Disable}
-                onClick={handleSubmit}
-              >
-                Submit
-              </button>
+               <Submit />
             </div>
-            <div className="p-2 w-full pt-8 mt-8 border-t border-gray-200 text-center">
+          </form>
+          <div className="p-2 w-full pt-8 mt-8 border-t border-gray-200 text-center">
               <Link href="#" className="text-indigo-500">
                 hit98987@gmail.com
               </Link>
@@ -262,7 +236,6 @@ const BookAppointment = () => {
                 </Link>
               </span>
             </div>
-          </form>
         </div>
     </div>
 

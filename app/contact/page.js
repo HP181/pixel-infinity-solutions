@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useRef } from "react";
+import { useFormStatus } from "react-dom";
 import Link from "next/link";
 import toast from "react-hot-toast";
-import { useFormStatus } from "react-dom";
 import sendContactData from "@/action/sendContactData";
 
 const Contact = () => {
@@ -49,10 +49,6 @@ const Contact = () => {
                   formData,
                   e
                 );
-
-                console.log(message);
-                console.log(status);
-                console.log(error);
 
                 if (error || status !== 201) {
                   ref.current.reset();
