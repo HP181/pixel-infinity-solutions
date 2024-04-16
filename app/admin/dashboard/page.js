@@ -154,7 +154,7 @@ const TableComponent = () => {
         <DatePicker
           selected={row.getValue("date")}
           onChange={(date) => handleDateChange(row.getValue("id"), date)}
-          className=" w-[40vw] sm:w-[80%] bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out "
+          className=" w-[20vw] !min-w-32 sm:w-[80%]  bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out "
           minDate={new Date()}
           dateFormat="dd/MM/yyyy"
           placeholderText="Select Date For Appointment"
@@ -227,7 +227,7 @@ const TableComponent = () => {
   });
 
   return (
-    <div className="w-full p-5">
+    <div className="w-full max-w-6xl m-auto p-5">
       <div className="flex items-center justify-around py-4 gap-3">
         <Input
           placeholder="Filter emails..."
