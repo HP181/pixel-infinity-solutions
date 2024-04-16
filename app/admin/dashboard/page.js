@@ -41,6 +41,7 @@ import {
 } from "@/components/ui/table";
 import getAppointments from "@/action/getAppointments";
 import updateAppointmentStatus from "@/action/updateAppointment.Ststus";
+import Loading from "./loading";
 
 const TableComponent = () => {
   const [data, setData] = useState([]);
@@ -226,7 +227,8 @@ const TableComponent = () => {
     },
   });
 
-  return (
+  return (<>
+    {data?.length <= 0 ? (<Loading />) : (  
     <div className="w-full max-w-6xl m-auto p-5">
       <div className="flex items-center justify-around py-4 gap-3">
         <Input
@@ -339,6 +341,8 @@ const TableComponent = () => {
         </div>
       </div>
     </div>
+)}
+    </>
   );
 };
 
