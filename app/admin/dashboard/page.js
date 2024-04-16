@@ -60,7 +60,6 @@ const TableComponent = () => {
 
   useEffect(() => {
     const callgetData = async () => {
-      console.log("clicked");
       setLoading(true);
       await getData();
       setLoading(false);
