@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { useTransition } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -39,10 +40,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import getAppointments from "@/action/getAppointments";
+import updateAppointmentStatus from "@/action/updateAppointment.Ststus";
 
 const TableComponent = () => {
   const [data, setData] = useState([]);
-  const [Disable, setDisable] = useState(false);
   const [loading, setLoading] = useState(false);
   const [columnVisibility, setColumnVisibility] = useState({});
   const [columnFilters, setColumnFilters] = useState([]);
@@ -50,36 +51,7 @@ const TableComponent = () => {
   const [sorting, setSorting] = useState([]);
   const [status, setStatus] = useState("");
 
-  // const getData = async () => {
-  //   const getDataNotification = toast.loading("Loading...");
-
-  //   const data = await fetch("/api/getAppointment", {
-  //     cache: "no-store",
-  //     next : {revalidate : 5},
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //   }
-  //    );
-
-  //   const response = await data.json();
-
-  //   if (data.status !== 201) {
-  //     toast.error(response?.error, { id: getDataNotification });
-  //     throw new Error("Network response was not ok");
-  //   }
-
-  //   toast.success(response?.status, { id: getDataNotification });
-
-  //   const dataWithIds = response?.message.map((item, index) => ({
-  //     ...item,
-  //     id: index + 1,
-  //   }));
-
-  //   setData(dataWithIds);
-  //   setLoading(false);
-  // };
+  const [isPending, startTransition] = useTransition();
 
   const getData = async () => {
     const { message } = await getAppointments();
@@ -87,7 +59,13 @@ const TableComponent = () => {
   };
 
   useEffect(() => {
-    getData();
+    const callgetData = async () => {
+      console.log("clicked");
+      setLoading(true);
+      await getData();
+      setLoading(false);
+    };
+    callgetData();
   }, []);
 
   const handleDateChange = (id, newDate) => {
@@ -106,34 +84,28 @@ const TableComponent = () => {
 
     const getId = data.filter((a) => a.id === id);
 
-    const notification = toast.loading("Loading...");
+    const _id = getId[0]._id;
+    const email = getId[0].email;
+    const name = getId[0].name;
+    const status = getStatus;
+    const date = getId[0].date;
 
-    const fetchData = await fetch("/api/updateAppointmentStatus", {
-      cache: "no-store",
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        _id: getId[0]._id,
-        email: getId[0].email,
-        name: getId[0].name,
-        status: getStatus,
-        date: getId[0].date,
-      }),
+    startTransition(async () => {
+      const { message, statusCode, error } = await updateAppointmentStatus(
+        _id,
+        email,
+        name,
+        status,
+        date
+      );
+
+      if (error || statusCode !== 201) {
+        return toast.error(error);
+      }
+
+      await getData();
+      return toast.success(message);
     });
-
-    const res = await fetchData.json();
-
-    if (fetchData?.status !== 201) {
-      setDisable(false);
-      return toast.error(res.error, { id: notification });
-    }
-
-    setDisable(false);
-
-    await getData();
-    return toast.success(res.message, { id: notification });
   };
 
   const columns = [
@@ -201,7 +173,11 @@ const TableComponent = () => {
       cell: ({ row }) => {
         return (
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
+            <DropdownMenuTrigger
+              asChild
+              disabled={isPending}
+              className={isPending ? "text-gray-500" : "text-black"}
+            >
               <Button variant="ghost" className="h-8 w-8 p-0">
                 <span className="sr-only">Open menu</span>
                 <DotsHorizontalIcon className="h-4 w-4" />

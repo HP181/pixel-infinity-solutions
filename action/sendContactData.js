@@ -4,7 +4,6 @@ import Connection from "@/lib/Connection";
 import Contact from "@/lib/schema/Contact";
 
 async function sendContactData(formData) {
-  
   const name = formData.get("name");
   const email = formData.get("email");
   const message = formData.get("message");

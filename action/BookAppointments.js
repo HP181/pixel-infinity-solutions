@@ -5,6 +5,7 @@ import Appointment from "@/lib/schema/AppointmentSchema";
 import { format, parse } from "date-fns";
 
 async function BookAppointments(formData) {
+  
   const name = formData.get("name");
   const email = formData.get("email");
   const date = formData.get("date");
