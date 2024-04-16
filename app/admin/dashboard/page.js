@@ -51,7 +51,6 @@ const TableComponent = () => {
 
 
 
-  // const [dates, setDates] = React.useState([]);
 
   const getData = async () => {
     const getDataNotification = toast.loading("Loading...");
