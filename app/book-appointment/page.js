@@ -6,7 +6,7 @@ import Link from "next/link";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import toast from "react-hot-toast";
-import bookAppointments from "@/action/bookAppointments";
+import createAppointments from "@/action/createAppointments"
 
 const BookAppointment = () => {
   const [startDate, setStartDate] = useState(new Date());
@@ -67,7 +67,7 @@ const BookAppointment = () => {
           type="submit"
           ref={ref}
           action={async (formData, e) => {
-            const { message, status, error } = await bookAppointments(
+            const { message, status, error } = await createAppointments(
               formData,
               e
             );

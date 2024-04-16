@@ -4,7 +4,7 @@ import Connection from "@/lib/Connection";
 import Appointment from "@/lib/schema/AppointmentSchema";
 import { format, parse } from "date-fns";
 
-async function bookAppointments(formData) {
+async function createAppointments(formData) {
   try {
     const name = formData.get("name");
     const email = formData.get("email");
@@ -52,4 +52,4 @@ async function bookAppointments(formData) {
     };
   }
 }
-export default bookAppointments;
+export default createAppointments;
