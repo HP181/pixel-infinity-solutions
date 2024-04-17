@@ -1,4 +1,3 @@
-
 const Life = () => {
   return (
     <>
@@ -142,7 +141,6 @@ const Life = () => {
               </div>
             </div>
           </div>
-
         </div>
       </section>
     </>

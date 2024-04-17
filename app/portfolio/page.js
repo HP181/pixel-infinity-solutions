@@ -1,15 +1,14 @@
 "use client";
 
-import {useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
-import data from "@/lib/data"
+import data from "@/lib/data";
 import { Modal } from "flowbite-react";
 
 const Portfolio = () => {
   const [openModal, setOpenModal] = useState(false);
   const [id, setId] = useState(null);
 
- 
   const handleClick = (id) => {
     setId(id);
     setOpenModal(true);
@@ -41,7 +40,6 @@ const Portfolio = () => {
         </div>
       </section>
 
-
       <section className="w-full mt-12">
         <div className="px-4 md:px-6">
           <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
@@ -65,7 +63,6 @@ const Portfolio = () => {
           </div>
         </div>
       </section>
-
 
       <section className="w-full mt-20 mb-5">
         <div className="px-4 md:px-6">
@@ -92,12 +89,21 @@ const Portfolio = () => {
       </section>
 
       <Modal show={openModal} onClose={() => setOpenModal(false)} size="5xl">
-        <Modal.Header className="dark:bg-[#303c54] dark:rounded-lg">Demo</Modal.Header>
+        <Modal.Header className="dark:bg-[#303c54] dark:rounded-lg">
+          Demo
+        </Modal.Header>
         <Modal.Body className="scrollbar-hide flex justify-center gap-0 m-0 p-2 dark:bg-[#303c54] dark:rounded-lg">
           <div className="space-y-6">
-           {data[id]?.url.map((item, index) => (
-            <Image src={item} width="900" height="900" key={index} className="m-0 !mt-0" alt="Images"></Image>
-           ))}
+            {data[id]?.url.map((item, index) => (
+              <Image
+                src={item}
+                width="900"
+                height="900"
+                key={index}
+                className="m-0 !mt-0"
+                alt="Images"
+              ></Image>
+            ))}
           </div>
         </Modal.Body>
       </Modal>

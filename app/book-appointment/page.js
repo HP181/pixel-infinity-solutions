@@ -6,7 +6,7 @@ import Link from "next/link";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import toast from "react-hot-toast";
-import createAppointments from "@/action/createAppointments"
+import createAppointments from "@/action/createAppointments";
 
 const BookAppointment = () => {
   const [startDate, setStartDate] = useState(new Date());
@@ -84,7 +84,10 @@ const BookAppointment = () => {
         >
           <div className="p-2 w-full sm:w-1/2">
             <div className="relative">
-              <label htmlFor="name" className="leading-7 text-sm text-gray-600 dark:text-gray-200">
+              <label
+                htmlFor="name"
+                className="leading-7 text-sm text-gray-600 dark:text-gray-200"
+              >
                 <p>
                   Name<span className="text-red-500">*</span>
                 </p>
@@ -120,7 +123,10 @@ const BookAppointment = () => {
 
           <div className="p-2 w-full sm:w-1/2">
             <div className="relative flex flex-col ">
-              <label htmlFor="date" className="leading-7 text-sm text-gray-600 dark:text-gray-200">
+              <label
+                htmlFor="date"
+                className="leading-7 text-sm text-gray-600 dark:text-gray-200"
+              >
                 <p>
                   Appointment <span className="text-red-500">*</span>
                 </p>
@@ -163,7 +169,10 @@ const BookAppointment = () => {
 
           <div className="p-2 w-full">
             <div className="relative">
-              <label htmlFor="desc" className="leading-7 text-sm text-gray-600 dark:text-gray-200">
+              <label
+                htmlFor="desc"
+                className="leading-7 text-sm text-gray-600 dark:text-gray-200"
+              >
                 <p>
                   Short Description <span className="text-red-500">*</span>
                 </p>
