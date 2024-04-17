@@ -244,11 +244,11 @@ const TableComponent = () => {
             />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="ml-auto">
+                <Button variant="outline" className="ml-auto dark:bg-gray-900">
                   Filter <ChevronDownIcon className="ml-2 h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
+              <DropdownMenuContent align="end" className="dark:bg-gray-900">
                 {table
                   .getAllColumns()
                   .filter((column) => column.getCanHide())

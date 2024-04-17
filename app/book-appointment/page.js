@@ -32,8 +32,8 @@ const BookAppointment = () => {
   }
 
   return (
-    <div className="max-w-6xl m-auto mb-12 bg-[#f3f4f6] dark:bg-[#1d2432] rounded-lg">
-      <div className="p-8 rounded-lg shadow-lg">
+    <div className="max-w-6xl m-auto mb-12  rounded-lg">
+      <div className="p-8 rounded-lg">
         <h2 className="text-2xl font-semibold mb-4 text-center md:text-left">
           Book An Appointment with <br />
           <span className="text-3xl font-bold mb-4">PixelInfinity</span>

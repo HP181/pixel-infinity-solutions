@@ -18,15 +18,17 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <section className="min-h-screen p-5 bg-[#f9fafb] shadow-2xl text-gray-950 relative dark:bg-gray-900 dark:text-gray-50 dark:text-opacity-90 transition-all duration-500">
-            <Protected />
-            <Notification />
-            {children}
+        <section className="bg-[#f9fafb] dark:bg-gray-900">
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <section className="min-h-screen bg-[#f9fafb]  text-gray-950 relative dark:bg-gray-900 dark:text-gray-50 dark:text-opacity-90 transition-all duration-500">
+              <Protected />
+              <Notification />
+              {children}
+            </section>
             <Footer />
             <ThemeSwitch />
-          </section>
-        </ThemeProvider>
+          </ThemeProvider>
+        </section>
       </body>
     </html>
   );
