@@ -13,8 +13,8 @@ const page = () => {
           </h2>
           <p className=" mt-4 text-justify sm:text-center sm:pt-4 lg:w-2/3 mx-auto leading-relaxed text-base">
             Pixel Infinity Solutions is a well established IT company in Canada.
-            we offer website development services. we have work all over the
-            world. Every website we using the latest method and technology.
+            we offer website development services. we work with all over the
+            world. Every website we are using the latest method and technology.
           </p>
         </div>
         <div className="flex flex-wrap gap-y-10 lg:gap-0">
@@ -31,8 +31,9 @@ const page = () => {
               Software Development
             </h2>
             <p className="leading-relaxed text-justify text-base mb-4 sm:text-center">
-              Pixel Infinity Solutions offers to create, design, deploy and
-              supports softwares that meet your needs.
+              Pixel Infinity Solutions offers to create, design, deploy,
+              maintain software solutions. We have a team of experienced
+              developers who are experts in the field of software development to fulfill your requirement.
             </p>
           </div>
           <div className="w-full lg:w-1/2 lg:px-8 lg:py-6 xl:w-1/4 xl:border-l-2 border-gray-200 border-opacity-60">
@@ -42,7 +43,7 @@ const page = () => {
             <p className="leading-relaxed text-base mb-4 text-justify sm:text-center">
               We create and implement E-commerce solutions that are integrated
               with your online business. we will deliver your project on time
-              and maintain quality.
+              and maintain the quality.
             </p>
           </div>
           <div className="w-full lg:w-1/2 lg:px-8 lg:py-6 xl:w-1/4 border-gray-200 border-opacity-60 lg:border-l-2">

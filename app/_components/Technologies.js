@@ -22,8 +22,8 @@ const Technologies = () => {
             Development
           </h2>
           <p className="p-6 text-justify">
-            we experts who build and maintain the mechanisms that process data
-            and perform actions on websites with data storage, security.
+            we are experts who build and maintain the mechanisms that process data
+            and perform actions on websites with data storage and security.
           </p>
         </div>
         <div className="h-64 w-64  m-2 bg-slate-50 dark:bg-[#1d2432]  rounded-2xl  shadow-xl hover:scale-110 ease-out transition-all duration-500">
@@ -32,8 +32,8 @@ const Technologies = () => {
             Development
           </h2>
           <p className="p-6 text-justify">
-            we responsible for creating the e-commerce businesses experiences
-            that consumers have come to expect.
+            we are responsible for creating the e-commerce businesses experiences
+            that consumers have to expect.
           </p>
         </div>
       </div>
