@@ -2,13 +2,13 @@
 const Life = () => {
   return (
     <>
-      <section className="text-gray-600 body-font mt-10 sm:mt-28 md:mt-28 m-0">
+      <section className=" body-font mt-10 sm:mt-28 md:mt-28 m-0">
         <div
           className="flex justify-center items-center  flex-col sm:flex-col sm:w-full sm:h-full  lg:container lg:px-5 lg:py-24 lg:mx-auto "
           bis_skin_checked={1}
         >
           <div className="text-center " bis_skin_checked={1}>
-            <h1 className="sm:text-3xl text-2xl  text-center title-font font-bold text-gray-900">
+            <h1 className="sm:text-3xl text-2xl  text-center title-font font-bold ">
               A DAY AT PIXEL INFINITY SOLUTIONS
             </h1>
           </div>
@@ -19,7 +19,7 @@ const Life = () => {
           >
             <div className="p-2 sm:w-1/2  w-full" bis_skin_checked={1}>
               <div
-                className="bg-gray-100 rounded flex p-4 h-full items-center"
+                className="bg-gray-100 dark:bg-[#1d2432] rounded flex p-4 h-full items-center"
                 bis_skin_checked={1}
               >
                 <svg
@@ -41,7 +41,7 @@ const Life = () => {
             </div>
             <div className="p-2 sm:w-1/2 w-full" bis_skin_checked={1}>
               <div
-                className="bg-gray-100 rounded flex p-4 h-full items-center"
+                className="bg-gray-100 dark:bg-[#1d2432] rounded flex p-4 h-full items-center"
                 bis_skin_checked={1}
               >
                 <svg
@@ -63,7 +63,7 @@ const Life = () => {
             </div>
             <div className="p-2 sm:w-1/2 w-full" bis_skin_checked={1}>
               <div
-                className="bg-gray-100 rounded flex p-4 h-full items-center"
+                className="bg-gray-100 dark:bg-[#1d2432] rounded flex p-4 h-full items-center"
                 bis_skin_checked={1}
               >
                 <svg
@@ -83,7 +83,7 @@ const Life = () => {
             </div>
             <div className="p-2 sm:w-1/2 w-full" bis_skin_checked={1}>
               <div
-                className="bg-gray-100 rounded flex p-4 h-full items-center"
+                className="bg-gray-100 dark:bg-[#1d2432] rounded flex p-4 h-full items-center"
                 bis_skin_checked={1}
               >
                 <svg
@@ -103,7 +103,7 @@ const Life = () => {
             </div>
             <div className="p-2 sm:w-1/2 w-full" bis_skin_checked={1}>
               <div
-                className="bg-gray-100 rounded flex p-4 h-full items-center"
+                className="bg-gray-100 dark:bg-[#1d2432] rounded flex p-4 h-full items-center"
                 bis_skin_checked={1}
               >
                 <svg
@@ -123,7 +123,7 @@ const Life = () => {
             </div>
             <div className="p-2 sm:w-1/2 w-full" bis_skin_checked={1}>
               <div
-                className="bg-gray-100 rounded flex p-4 h-full items-center"
+                className="bg-gray-100 dark:bg-[#1d2432] rounded flex p-4 h-full items-center"
                 bis_skin_checked={1}
               >
                 <svg

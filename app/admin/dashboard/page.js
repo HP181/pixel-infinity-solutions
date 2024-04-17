@@ -155,7 +155,7 @@ const TableComponent = () => {
         <DatePicker
           selected={row.getValue("date")}
           onChange={(date) => handleDateChange(row.getValue("id"), date)}
-          className=" w-[20vw] !min-w-32 sm:w-[80%]  bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out "
+          className=" w-[20vw] !min-w-32 sm:w-[80%]  dark:bg-white dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 duration-200 ease-in-out "
           minDate={new Date()}
           dateFormat="dd/MM/yyyy"
           placeholderText="Select Date For Appointment"
@@ -180,7 +180,7 @@ const TableComponent = () => {
             >
               <Button variant="ghost" className="h-8 w-8 p-0">
                 <span className="sr-only">Open menu</span>
-                <DotsHorizontalIcon className="h-4 w-4" />
+                <DotsHorizontalIcon className="h-4 w-4 text-black dark:text-white" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
@@ -237,7 +237,7 @@ const TableComponent = () => {
           onChange={(event) =>
             table.getColumn("email")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm"
+          className="max-w-sm dark:border-2"
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

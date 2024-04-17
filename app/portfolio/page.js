@@ -92,8 +92,8 @@ const Portfolio = () => {
       </section>
 
       <Modal show={openModal} onClose={() => setOpenModal(false)} size="5xl">
-        <Modal.Header>Demo</Modal.Header>
-        <Modal.Body className="scrollbar-hide flex justify-center gap-0 m-0 p-2">
+        <Modal.Header className="dark:bg-[#303c54] dark:rounded-lg">Demo</Modal.Header>
+        <Modal.Body className="scrollbar-hide flex justify-center gap-0 m-0 p-2 dark:bg-[#303c54] dark:rounded-lg">
           <div className="space-y-6">
            {data[id]?.url.map((item, index) => (
             <Image src={item} width="900" height="900" key={index} className="m-0 !mt-0" alt="Images"></Image>

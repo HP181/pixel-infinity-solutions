@@ -32,8 +32,8 @@ const BookAppointment = () => {
   }
 
   return (
-    <div className="max-w-6xl m-auto mb-12">
-      <div className="bg-white  p-8 rounded-lg shadow-lg">
+    <div className="max-w-6xl m-auto mb-12 bg-[#f3f4f6] dark:bg-[#1d2432] rounded-lg">
+      <div className="p-8 rounded-lg shadow-lg">
         <h2 className="text-2xl font-semibold mb-4 text-center md:text-left">
           Book An Appointment with <br />
           <span className="text-3xl font-bold mb-4">PixelInfinity</span>
@@ -84,7 +84,7 @@ const BookAppointment = () => {
         >
           <div className="p-2 w-full sm:w-1/2">
             <div className="relative">
-              <label htmlFor="name" className="leading-7 text-sm text-gray-600">
+              <label htmlFor="name" className="leading-7 text-sm text-gray-600 dark:text-gray-200">
                 <p>
                   Name<span className="text-red-500">*</span>
                 </p>
@@ -94,7 +94,7 @@ const BookAppointment = () => {
                 id="name"
                 name="name"
                 required
-                className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                className="w-full dark:bg-white dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 duration-200 ease-in-out"
               />
             </div>
           </div>
@@ -102,7 +102,7 @@ const BookAppointment = () => {
             <div className="relative">
               <label
                 htmlFor="email"
-                className="leading-7 text-sm text-gray-600"
+                className="leading-7 text-sm text-gray-600 dark:text-gray-200"
               >
                 <p>
                   Email <span className="text-red-500">*</span>
@@ -113,14 +113,14 @@ const BookAppointment = () => {
                 id="email"
                 name="email"
                 required
-                className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 jease-in-out"
+                className="w-full dark:bg-white dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 duration-200 ease-in-out"
               />
             </div>
           </div>
 
           <div className="p-2 w-full sm:w-1/2">
             <div className="relative flex flex-col ">
-              <label htmlFor="date" className="leading-7 text-sm text-gray-600">
+              <label htmlFor="date" className="leading-7 text-sm text-gray-600 dark:text-gray-200">
                 <p>
                   Appointment <span className="text-red-500">*</span>
                 </p>
@@ -131,7 +131,7 @@ const BookAppointment = () => {
                 onChange={(date) => setStartDate(date)}
                 name="date"
                 value={startDate}
-                className="w-[100%] bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out "
+                className="w-[100%] dark:bg-white dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 duration-200 ease-in-out"
                 minDate={new Date()}
                 required
                 dateFormat="dd/MM/yyyy"
@@ -145,7 +145,7 @@ const BookAppointment = () => {
             <div className="relative">
               <label
                 htmlFor="subject"
-                className="leading-7 text-sm text-gray-600"
+                className="leading-7 text-sm text-gray-600 dark:text-gray-200"
               >
                 <p>
                   Subject <span className="text-red-500">*</span>
@@ -156,14 +156,14 @@ const BookAppointment = () => {
                 id="subject"
                 name="subject"
                 required
-                className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                className="w-full dark:bg-white dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 duration-200 ease-in-out"
               />
             </div>
           </div>
 
           <div className="p-2 w-full">
             <div className="relative">
-              <label htmlFor="desc" className="leading-7 text-sm text-gray-600">
+              <label htmlFor="desc" className="leading-7 text-sm text-gray-600 dark:text-gray-200">
                 <p>
                   Short Description <span className="text-red-500">*</span>
                 </p>
@@ -172,7 +172,7 @@ const BookAppointment = () => {
                 id="message"
                 name="desc"
                 required
-                className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
+                className="w-full dark:bg-white dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 duration-200 ease-in-out h-32"
               />
             </div>
           </div>

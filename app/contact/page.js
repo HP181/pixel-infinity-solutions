@@ -30,10 +30,10 @@ const Contact = () => {
 
   return (
     <div className="mt-10 max-w-6xl m-auto">
-      <section className="text-gray-600 body-font bg-slate-50 rounded-lg relative ">
+      <section className="text-gray-600 body-font rounded-lg relative ">
         <div className="container px-5 py-8 mx-auto">
           <div className="flex flex-col text-center w-full mb-12">
-            <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
+            <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900 dark:text-white">
               Contact Us
             </h1>
             <p className="lg:w-3/3 mx-auto leading-relaxed text-indigo-500 text-base">
@@ -64,7 +64,7 @@ const Contact = () => {
                 <div className="">
                   <label
                     htmlFor="name"
-                    className="leading-7 text-sm text-gray-600 w-28"
+                    className="leading-7 text-sm text-gray-600 dark:text-gray-200 w-28"
                   >
                     <p>
                       {" "}
@@ -76,15 +76,15 @@ const Contact = () => {
                     id="name"
                     name="name"
                     required
-                    className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                    className="w-full dark:bg-white dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 duration-200 ease-in-out"
                   />
                 </div>
-              </div>
+              </div> 
               <div className="p-2 w-full">
                 <div className="relative ">
                   <label
                     htmlFor="email"
-                    className="leading-7 text-sm text-gray-600 w-28"
+                    className="leading-7 text-sm text-gray-600 dark:text-gray-200 w-28"
                   >
                     <p>
                       Email<span className="text-red-500">*</span>
@@ -95,7 +95,7 @@ const Contact = () => {
                     id="email"
                     name="email"
                     required
-                    className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                    className="w-full dark:bg-white dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 duration-200 ease-in-out"
                   />
                 </div>
               </div>
@@ -103,7 +103,7 @@ const Contact = () => {
                 <div className="relative ">
                   <label
                     htmlFor="message"
-                    className="leading-7 text-sm text-gray-600 w-28"
+                    className="leading-7 text-sm text-gray-600 dark:text-gray-200 w-28"
                   >
                     <p>
                       Message<span className="text-red-500">*</span>
@@ -113,7 +113,7 @@ const Contact = () => {
                     id="message"
                     name="message"
                     required
-                    className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
+                    className="w-full dark:bg-white dark:bg-opacity-80 dark:focus:bg-opacity-100 transition-all dark:outline-none bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 duration-200 ease-in-out h-32"
                   />
                 </div>
               </div>

@@ -2,7 +2,7 @@ import React from 'react'
 
 const page = () => {
   return (
-    <section className="text-gray-600 body-font max-w-6xl m-auto">
+    <section className=" body-font max-w-6xl m-auto">
         <div className="  px-5 py-14 mx-auto">
           <div className=" flex flex-col text-center  w-full mb-20">
             <h1 className="sm:text-3xl sm:text-center text-2xl font-bold title-font mb-4 text-gray-900">
@@ -19,7 +19,7 @@ const page = () => {
           </div>
           <div className="flex flex-wrap">
             <div className="  w-full lg:w-1/2 xl:w-1/4 px-8 py-6  border-gray-200 border-opacity-60">
-              <h2 className=" text-center text-lg sm:text-xl text-gray-900 font-bold title-font mb-4">
+              <h2 className=" text-center text-lg sm:text-xl font-bold title-font mb-4">
                 Website Development
               </h2>
               <p className="leading-relaxed text-justify text-base mb-4 sm:text-center">
@@ -27,7 +27,7 @@ const page = () => {
               </p>
             </div>
             <div className="w-full lg:w-1/2 xl:w-1/4 px-8 py-6  border-gray-200 border-opacity-60 lg:border-l-2">
-              <h2 className=" text-center text-lg sm:text-xl text-gray-900 font-bold title-font mb-4">
+              <h2 className=" text-center text-lg sm:text-xl  font-bold title-font mb-4">
                 Software Development
               </h2>
               <p className="leading-relaxed text-justify text-base mb-4 sm:text-center">
@@ -36,7 +36,7 @@ const page = () => {
               </p>
             </div>
             <div className="w-full lg:w-1/2 xl:w-1/4 xl:border-l-2 px-8 py-6  border-gray-200 border-opacity-60">
-              <h2 className="text-lg sm:text-xl text-center text-gray-900 font-bold title-font mb-2">
+              <h2 className="text-lg sm:text-xl text-center font-bold title-font mb-2">
                 E-Commerce Development
               </h2>
               <p className="leading-relaxed text-base mb-4 text-justify sm:text-center">
@@ -46,7 +46,7 @@ const page = () => {
               </p>
             </div>
             <div className="w-full lg:w-1/2 xl:w-1/4 px-8 py-6 border-gray-200 border-opacity-60 lg:border-l-2">
-              <h2 className="text-lg sm:text-xl text-gray-900 font-bold title-font mb-2 text-center">
+              <h2 className="text-lg sm:text-xl font-bold title-font mb-2 text-center">
                 Website Disging
               </h2>
               <p className="leading-relaxed text-base mb-4 text-justify sm:text-center">

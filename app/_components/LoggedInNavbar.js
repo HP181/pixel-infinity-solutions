@@ -18,7 +18,7 @@ const LoggedInNavbar = () => {
 
   return (
     <>
-      <header className="mobile:hidden desktop:block text-gray-600 p-0 max-w-6xl m-auto">
+      <header className="mobile:hidden desktop:block  p-0 max-w-6xl m-auto">
         <div
           className="mx-auto flex flex-wrap p-3 flex-col md:flex-row items-center"
           bis_skin_checked={1}
@@ -31,7 +31,7 @@ const LoggedInNavbar = () => {
               width="900"
               height="900"
               src="/logo.png"
-              className="h-24 w-24"
+              className="h-24 w-24 dark:invert"
               alt="Logo"
             />
           </Link>
@@ -42,7 +42,7 @@ const LoggedInNavbar = () => {
               className={
                 pathname === "/"
                   ? "mr-5  text-xl font-semibold text-blue-500 hover:underline transition-all duration-150 ease-in-out"
-                  : "mr-5  text-xl text-black font-semibold  hover:text-blue-500 hover:underline transition-all duration-150 ease-in-out"
+                  : "mr-5  text-xl  font-semibold  hover:text-blue-500 hover:underline transition-all duration-150 ease-in-out"
               }
             >
               Home
@@ -52,8 +52,8 @@ const LoggedInNavbar = () => {
               href="/portfolio"
               className={
                 pathname === "/portfolio"
-                  ? "mr-5  text-xl font-semibold text-blue-500 hover:underline transition-all duration-150 ease-in-out"
-                  : "mr-5  text-xl text-black font-semibold  hover:text-blue-500 hover:underline transition-all duration-150 ease-in-out"
+                  ? "mr-5  text-xl font-semibold text-blue-500 hover:underline"
+                  : "mr-5  text-xl  font-semibold  hover:text-blue-500 hover:underline"
               }
             >
               Portfolio
@@ -62,8 +62,8 @@ const LoggedInNavbar = () => {
               href="/about"
               className={
                 pathname === "/about"
-                  ? "mr-5  text-xl font-semibold text-blue-500 hover:underline transition-all duration-150 ease-in-out"
-                  : "mr-5  text-xl text-black font-semibold  hover:text-blue-500 hover:underline transition-all duration-150 ease-in-out"
+                  ? "mr-5  text-xl font-semibold text-blue-500 hover:underline"
+                  : "mr-5  text-xl  font-semibold  hover:text-blue-500 hover:underline"
               }
             >
               About
@@ -72,8 +72,8 @@ const LoggedInNavbar = () => {
               href="/contact"
               className={
                 pathname === "/contact"
-                  ? "mr-5  text-xl font-semibold text-blue-500 hover:underline transition-all duration-150 ease-in-out"
-                  : "mr-5  text-xl text-black font-semibold  hover:text-blue-500 hover:underline transition-all duration-150 ease-in-out"
+                  ? "mr-5  text-xl font-semibold text-blue-500 hover:underline"
+                  : "mr-5  text-xl font-semibold  hover:text-blue-500 hover:underline"
               }
             >
               Contact
@@ -83,15 +83,21 @@ const LoggedInNavbar = () => {
               href="/book-appointment"
               className={
                 pathname === "/book-appointment"
-                  ? "mr-5  text-xl font-semibold text-blue-500 hover:underline transition-all duration-150 ease-in-out"
-                  : "mr-5  text-xl text-black font-semibold  hover:text-blue-500 hover:underline transition-all duration-150 ease-in-out"
+                  ? "mr-5  text-xl font-semibold text-blue-500 hover:underline"
+                  : "mr-5  text-xl font-semibold  hover:text-blue-500 hover:underline"
               }
             >
               Book Apointment
             </Link>
 
             <Button className="m-0 p-0">
-              <LogoutLink className="h-9 px-4 py-2 rounded-[4px] underline">
+              <LogoutLink
+                className={
+                  pathname === "/admin/dashboard"
+                    ? "h-9 px-4 py-2 rounded-[4px] underline"
+                    : "h-9 px-4 py-2 rounded-[4px] hover:underline"
+                }
+              >
                 Logout
               </LogoutLink>
             </Button>
@@ -123,11 +129,11 @@ const LoggedInNavbar = () => {
                 </div>
               </div>
 
-              <div className="-mr-2 flex">
+              <div className="-mr-2 flex ">
                 <button
                   onClick={() => setIsOpen(!isOpen)}
                   type="button"
-                  className="bg-white inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
+                  className="inline-flex items-center justify-center p-2 w-10 h-10 rounded-md text-gray-400 hover:text-white focus:outline-none "
                   aria-controls="mobile-menu"
                   aria-expanded="false"
                 >
@@ -135,14 +141,12 @@ const LoggedInNavbar = () => {
                   {!isOpen ? (
                     <CgMenu
                       size={25}
-                      color="black"
-                      className="object-contain font-bold"
+                      className="object-contain font-bold text-black dark:text-white"
                     />
                   ) : (
                     <CgClose
                       size={25}
-                      color="black"
-                      className="object-contain font-bold"
+                      className="object-contain font-bold text-black dark:text-white"
                     />
                   )}
                 </button>
@@ -171,7 +175,7 @@ const LoggedInNavbar = () => {
                     className={
                       pathname === "/"
                         ? "text-blue-500 block px-3 py-2 rounded-md text-lg font-bold hover:underline"
-                        : "text-black block px-3 py-2 rounded-md text-lg font-bold hover:text-blue-500 hover:underline transition-all duration-150 ease-in-out"
+                        : " block px-3 py-2 rounded-md text-lg font-bold hover:text-blue-500 hover:underline"
                     }
                   >
                     Home
@@ -183,7 +187,7 @@ const LoggedInNavbar = () => {
                     className={
                       pathname === "/portfolio"
                         ? "text-blue-500 block px-3 py-2 rounded-md text-lg font-bold hover:underline"
-                        : "text-black block px-3 py-2 rounded-md text-lg font-bold hover:text-blue-500 hover:underline transition-all duration-150 ease-in-out"
+                        : " block px-3 py-2 rounded-md text-lg font-bold hover:text-blue-500 hover:underline"
                     }
                   >
                     Portfolio
@@ -194,7 +198,7 @@ const LoggedInNavbar = () => {
                     className={
                       pathname === "/about"
                         ? "text-blue-500 block px-3 py-2 rounded-md text-lg font-bold hover:underline"
-                        : "text-black block px-3 py-2 rounded-md text-lg font-bold hover:text-blue-500 hover:underline transition-all duration-150 ease-in-out"
+                        : " block px-3 py-2 rounded-md text-lg font-bold hover:text-blue-500 hover:underline"
                     }
                   >
                     About
@@ -205,7 +209,7 @@ const LoggedInNavbar = () => {
                     className={
                       pathname === "/contact"
                         ? "text-blue-500 block px-3 py-2 rounded-md text-lg font-bold hover:underline"
-                        : "text-black block px-3 py-2 rounded-md text-lg font-bold hover:text-blue-500 hover:underline transition-all duration-150 ease-in-out"
+                        : " block px-3 py-2 rounded-md text-lg font-bold hover:text-blue-500 hover:underline"
                     }
                   >
                     Contact
@@ -216,14 +220,20 @@ const LoggedInNavbar = () => {
                     className={
                       pathname === "/book-appointment"
                         ? "text-blue-500 block px-3 py-2 rounded-md text-lg font-bold hover:underline"
-                        : "text-black block px-3 py-2 rounded-md text-lg font-bold hover:text-blue-500 hover:underline transition-all duration-150 ease-in-out"
+                        : " block px-3 py-2 rounded-md text-lg font-bold hover:text-blue-500 hover:underline"
                     }
                   >
                     Book Appointment
                   </Link>
 
                   <Button className="p-0">
-                    <LogoutLink className="h-9 px-4 py-2 rounded-[4px] underline">
+                    <LogoutLink
+                      className={
+                        pathname === "/admin/dashboard"
+                          ? "h-9 px-4 py-2 rounded-[4px] underline"
+                          : "h-9 px-4 py-2 rounded-[4px] hover:underline transition-all duration-150 ease-in-out"
+                      }
+                    >
                       Logout
                     </LogoutLink>
                   </Button>
