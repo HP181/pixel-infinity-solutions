@@ -132,7 +132,7 @@ const Contact = () => {
                 +1 (437) 556-7042
               </p>
               <span className="inline-flex">
-                <Link href="#" className="text-gray-500">
+                <Link href="https://www.facebook.com" className="text-gray-500" target="_blank" rel="noopener noreferrer">
                   <svg
                     fill="currentColor"
                     strokeLinecap="round"
@@ -145,7 +145,7 @@ const Contact = () => {
                   </svg>
                 </Link>
 
-                <Link href="#" className="ml-4 text-gray-500">
+                <Link href="https://www.instagram.com" className="ml-4 text-gray-500" target="_blank" rel="noopener noreferrer">
                   <svg
                     fill="none"
                     stroke="currentColor"
@@ -159,7 +159,7 @@ const Contact = () => {
                     <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01" />
                   </svg>
                 </Link>
-                <Link href="#" className="ml-4 text-gray-500">
+                <Link href="https://signal.org" className="ml-4 text-gray-500" target="_blank" rel="noopener noreferrer">
                   <svg
                     fill="currentColor"
                     strokeLinecap="round"
