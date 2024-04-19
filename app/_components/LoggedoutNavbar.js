@@ -30,7 +30,7 @@ const LoggedOutNavbar = () => {
             <Image
               width="900"
               height="900"
-              src="/logo.png"
+              src="/logo-2.svg"
               className="h-24 w-24 dark:invert"
               alt="Logo"
             />
@@ -121,8 +121,8 @@ const LoggedOutNavbar = () => {
                     <Image
                       width="900"
                       height="900"
-                      src="/logo.png"
-                      className="h-24 w-24"
+                      src="/logo-2.svg"
+                      className="h-24 w-24 dark:invert"
                       alt="Logo"
                     />
                   </Link>

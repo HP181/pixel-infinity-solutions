@@ -17,7 +17,7 @@ const Skills = () => {
                   width="900"
                   height="900"
                   src={item?.url}
-                  className="h-full w-full object-contain p-2"
+                  className="h-full w-full object-contain p-2 dark:invert"
                   alt=""
                 />
               </div>
