@@ -10,10 +10,10 @@ const Footer = () => {
             <div className="  flex   flex-col md:w-72 xs:justify-evenly xs:items-center xxs:justify-evenly xxs:items-center sm:justify-evenly sm:items-center  md:justify-evenly md:items-center text-center h-60  xs:w-52 xxs:w-72   sm:w-80  lg:w-60 xl:w-72 ">
               <div>
                 <Image
-                  src="/footer-logo.png"
+                  src="/logo-2.svg"
                   height="900"
                   width="900"
-                  className=" w-60 h-60 object-contain flex-1"
+                  className=" w-60 h-60 object-contain flex-1 dark:invert"
                   alt="Footer Logo"
                 />
               </div>
