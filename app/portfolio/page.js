@@ -88,6 +88,30 @@ const Portfolio = () => {
         </div>
       </section>
 
+      <section className="w-full mt-12 mb-10">
+        <div className="px-4 md:px-6">
+          <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
+            <div className="flex flex-col justify-center">
+              <div>
+                <h1 className="text-3xl text-center font-semibold tracking-tighter sm:text-4xl xl:text-4xl/none">
+                  Pixel-Infinity-Solutions
+                </h1>
+              </div>
+            </div>
+            <div className="mx-auto grid max-w-5xl items-center gap-6 lg:order-first lg:gap-10 border-black">
+              <Image
+                className="mx-auto aspect-video overflow-hidden rounded-xl cursor-pointer object-fill object-center shadow-lg shadow-blue-400 hover:scale-105 transition-all duration-150 ease-in-out"
+                src={data[3].url[0]}
+                height="900"
+                width="900"
+                alt="Image"
+                onClick={() => handleClick(3)}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
       <Modal show={openModal} onClose={() => setOpenModal(false)} size="5xl">
         <Modal.Header className="dark:bg-[#303c54] dark:rounded-lg">
           Demo
