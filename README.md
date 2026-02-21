@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Pixel Infinity Solutions
 
-## Getting Started
+**[GitHub](https://github.com/your-username/pixel-infinity-solutions) | [Live Project](https://pixel-infinity-solutions.com)**
 
-First, run the development server:
+Built a high-performance, full-stack corporate platform for an IT solutions provider, featuring a comprehensive client-facing site and a robust administrative management system.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🛠️ Technologies Used
+* **Frontend:** Next.js, React, Tailwind CSS, shadcn/ui
+* **Backend:** Next.js API Routes (Serverless)
+* **Database:** MongoDB
+* **Tools:** Lucide React, Zod (Validation), Nodemailer
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 🚀 Key Features
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### Client-Facing Website
+* **Modern UI/UX:** Fully responsive design featuring Home, Portfolio, About, and Contact sections.
+* **Appointment Booking:** Integrated scheduling system allowing users to request consultations with specific project details and subject lines.
+* **Automated Notifications:** Implemented email triggers to notify users upon successful booking and subsequent status updates.
 
-## Learn More
+### Admin Dashboard & Management
+* **Role-Based Access Control (RBAC):** Secure dashboard environment restricted to authorized administrators.
+* **Appointment Lifecycle Management:** Tools to **Accept**, **Reject**, or **Reschedule** consultations with real-time status tracking (Pending/Accepted/Rejected).
+* **Data Grid Functionality:** Advanced table features including:
+    * **Pagination:** Smooth navigation through large datasets.
+    * **Column Toggling:** Customizable view to focus on relevant data points.
+    * **Search & Filtering:** Email-based search functionality for quick client retrieval.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## 🏗️ Architecture & Performance
+* **Scalable APIs:** Designed MongoDB-backed RESTful APIs to handle seamless admin-user workflows.
+* **Performance Optimization:** Leveraged Next.js Server Components and Image optimization to ensure fast load times and high SEO scores.
+* **Type Safety:** Utilized robust validation patterns to ensure data integrity between the client and the database.
