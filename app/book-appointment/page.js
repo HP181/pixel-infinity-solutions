@@ -1,35 +1,69 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import { useFormStatus } from "react-dom";
 import Link from "next/link";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import toast from "react-hot-toast";
-import createAppointments from "@/action/createAppointments";
+import { gql } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
+
+const CREATE_APPOINTMENT = gql`
+  mutation CreateAppointment(
+    $name: String!
+    $email: String!
+    $date: String!
+    $subject: String!
+    $desc: String!
+  ) {
+    createAppointment(
+      name: $name
+      email: $email
+      date: $date
+      subject: $subject
+      desc: $desc
+    ) {
+      message
+      status
+      error
+    }
+  }
+`;
 
 const BookAppointment = () => {
   const [startDate, setStartDate] = useState(new Date());
   const ref = useRef();
 
-  function Submit() {
-    const { pending } = useFormStatus();
+  const [createAppointment, { loading: pending }] = useMutation(
+    CREATE_APPOINTMENT,
+    {
+      onCompleted: ({ createAppointment: result }) => {
+        if (result.error || result.status !== 201) {
+          ref.current.reset();
+          toast.error(result.error);
+        } else {
+          ref.current.reset();
+          setStartDate(new Date());
+          toast.success(result.message);
+        }
+      },
+      onError: (err) => toast.error(err.message),
+    }
+  );
 
-    return (
-      <button
-        type="submit"
-        disabled={pending}
-        className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg disabled:cursor-wait disabled:bg-indigo-300"
-      >
-        {" "}
-        {pending ? (
-          <div className="h-5 w-5 animate-spin rounded-full border-b-2 border-white"></div>
-        ) : (
-          "Submit"
-        )}{" "}
-      </button>
-    );
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    createAppointment({
+      variables: {
+        name: formData.get("name"),
+        email: formData.get("email"),
+        date: startDate.toISOString(),
+        subject: formData.get("subject"),
+        desc: formData.get("desc"),
+      },
+    });
+  };
 
   return (
     <div className="max-w-6xl m-auto mb-12  rounded-lg">
@@ -64,22 +98,8 @@ const BookAppointment = () => {
           </div>
         </div>
         <form
-          type="submit"
           ref={ref}
-          action={async (formData, e) => {
-            const { message, status, error } = await createAppointments(
-              formData,
-              e
-            );
-
-            if (error || status !== 201) {
-              ref.current.reset();
-              return toast.error(error);
-            }
-
-            ref.current.reset();
-            return toast.success(message);
-          }}
+          onSubmit={handleSubmit}
           className="flex flex-wrap -m-2 mt-8"
         >
           <div className="p-2 w-full sm:w-1/2">
@@ -186,7 +206,17 @@ const BookAppointment = () => {
             </div>
           </div>
           <div className="p-2 w-full">
-            <Submit />
+            <button
+              type="submit"
+              disabled={pending}
+              className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg disabled:cursor-wait disabled:bg-indigo-300"
+            >
+              {pending ? (
+                <div className="h-5 w-5 animate-spin rounded-full border-b-2 border-white"></div>
+              ) : (
+                "Submit"
+              )}
+            </button>
           </div>
         </form>
         <div className="p-2 w-full pt-8 mt-8 border-t border-gray-200 text-center">

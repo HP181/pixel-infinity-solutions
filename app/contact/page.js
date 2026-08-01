@@ -1,32 +1,52 @@
 "use client";
 
 import React, { useRef } from "react";
-import { useFormStatus } from "react-dom";
 import Link from "next/link";
 import toast from "react-hot-toast";
-import sendContactData from "@/action/sendContactData";
+import { gql } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
+
+const CREATE_CONTACT = gql`
+  mutation CreateContact(
+    $name: String!
+    $email: String!
+    $message: String!
+  ) {
+    createContact(name: $name, email: $email, message: $message) {
+      message
+      status
+      error
+    }
+  }
+`;
 
 const Contact = () => {
   const ref = useRef();
 
-  function Submit() {
-    const { pending } = useFormStatus();
+  const [createContact, { loading: pending }] = useMutation(CREATE_CONTACT, {
+    onCompleted: ({ createContact: result }) => {
+      if (result.error || result.status !== 201) {
+        ref.current.reset();
+        toast.error(result.error);
+      } else {
+        ref.current.reset();
+        toast.success(result.message);
+      }
+    },
+    onError: (err) => toast.error(err.message),
+  });
 
-    return (
-      <button
-        type="submit"
-        disabled={pending}
-        className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg disabled:cursor-wait disabled:bg-indigo-300"
-      >
-        {" "}
-        {pending ? (
-          <div className="h-5 w-5 animate-spin rounded-full border-b-2 border-white"></div>
-        ) : (
-          "Submit"
-        )}{" "}
-      </button>
-    );
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    createContact({
+      variables: {
+        name: formData.get("name"),
+        email: formData.get("email"),
+        message: formData.get("message"),
+      },
+    });
+  };
 
   return (
     <div className="mt-10 max-w-6xl m-auto">
@@ -42,22 +62,8 @@ const Contact = () => {
           </div>
           <div className="max-w-xl mx-auto">
             <form
-              type="submit"
               ref={ref}
-              action={async (formData, e) => {
-                const { message, status, error } = await sendContactData(
-                  formData,
-                  e
-                );
-
-                if (error || status !== 201) {
-                  ref.current.reset();
-                  return toast.error(error);
-                }
-
-                ref.current.reset();
-                return toast.success(message);
-              }}
+              onSubmit={handleSubmit}
               className="flex flex-col -m-2"
             >
               <div className="p-2 w-full">
@@ -67,7 +73,6 @@ const Contact = () => {
                     className="leading-7 text-sm text-gray-600 dark:text-gray-200 w-28"
                   >
                     <p>
-                      {" "}
                       Name<span className="text-red-500">*</span>
                     </p>
                   </label>
@@ -118,7 +123,17 @@ const Contact = () => {
                 </div>
               </div>
               <div className="p-2 w-full">
-                <Submit />
+                <button
+                  type="submit"
+                  disabled={pending}
+                  className="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg disabled:cursor-wait disabled:bg-indigo-300"
+                >
+                  {pending ? (
+                    <div className="h-5 w-5 animate-spin rounded-full border-b-2 border-white"></div>
+                  ) : (
+                    "Submit"
+                  )}
+                </button>
               </div>
             </form>
             <div className="p-2 w-full pt-8 mt-8 border-t border-gray-200 text-center">
