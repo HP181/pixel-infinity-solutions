@@ -428,7 +428,7 @@ Authentication is handled server-side by `app/protected/page.js` — it calls `g
 
 ## Skills (21)
 
-React · Next.js · Node.js · Express · Firebase · MongoDB · Material UI · Bootstrap · Tailwind CSS · Jest · Angular · PHP · Java · Python · Flask · MySQL · WordPress · HTML5 · CSS3 · JavaScript · Git
+React · Next.js · Node.js · Express · MongoDB · Mongoose · GraphQL · GraphQL-Yoga · Apollo · Kinde · Nodemailer · React-Hook-Form · RXJS · Zod · Material UI · Tailwind CSS · Jest · HTML5 · CSS3 · JavaScript · Git · Vercel
 
 ---
 
@@ -443,7 +443,6 @@ The route originally exported graphql-yoga's `handleRequest` directly. Yoga buil
 
 **The tell-tale sign:** even a `{ __typename }` query — which never touches MongoDB — returned 500, while `OPTIONS` (a bodyless 204 preflight) succeeded. This proved the issue was not the database or resolvers — it was specifically the **response body serialization** that Vercel couldn't handle.
 
-**Why "works on Preview but not Production":** The fix commits only existed locally and hadn't been pushed, so production kept redeploying the old code. Preview picked up the new code first, which is why Preview started passing before Production.
 
 ### The Fixes (Applied & on GitHub)
 
