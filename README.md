@@ -8,7 +8,7 @@
 
 ---
 
-[Features](#-features) · [Tech Stack](#-tech-stack) · [Architecture](#-architecture) · [GraphQL API](#-graphql-api) · [Performance](#-performance-optimizations) · [Getting Started](#-getting-started) · [Pages](#-pages)
+[Features](#-features) · [Tech Stack](#-tech-stack) · [Architecture](#-architecture) · [GraphQL API](#-graphql-api) · [Project Structure](#-project-structure) · [Performance](#-performance-optimizations) · [Getting Started](#-getting-started) · [Pages](#-pages)
 
 </div>
 
@@ -26,14 +26,17 @@ Built from the ground up with a **single GraphQL endpoint** replacing all REST c
 
 | | Feature | Description |
 |---|---|---|
-| Portfolio | **Showcase** | Projects, skills, and technology stack on display |
-| Booking | **Appointment System** | Date-picking form with live submission via GraphQL mutation |
-| Contact | **Lead Capture** | Contact form saved directly to MongoDB |
-| Admin | **Dashboard** | Protected table — sort, filter, paginate, update appointment status |
-| Email | **Auto Notifications** | Confirm/reject triggers instant email to the client via Gmail SMTP |
-| Auth | **Kinde Auth** | Middleware-protected admin route, login/logout flow |
-| UX | **Dark Mode** | System-aware theme with manual toggle |
-| Data | **GraphQL + Apollo** | Single endpoint, client-side cache, background refresh |
+| Home | **Landing Page** | Typewriter hero, expertise cards, 21-skill grid, agency workflow, embedded contact form |
+| Portfolio | **Project Showcase** | 4 client projects (Ecommerce, Gym, Restaurant, Pixel-Infinity-Solutions) with Flowbite image gallery modals |
+| About | **Agency Info** | Services overview — Website Dev, Software Dev, E-Commerce Dev, Web Design |
+| Booking | **Appointment System** | 5-field DatePicker form submitted via GraphQL mutation |
+| Contact | **Lead Capture** | 3-field form saved to MongoDB via GraphQL — also embedded in home page |
+| Admin | **Dashboard** | Protected table — sort, filter, paginate, toggle columns, update appointment status |
+| Email | **Auto Notifications** | Confirm/reject triggers branded HTML email to the client via Gmail SMTP |
+| Auth | **Kinde Auth** | Server-side `isAuthenticated()` check renders admin vs public navbar; full login/logout flow |
+| UX | **Dark Mode** | System-aware theme with manual toggle, persisted to `localStorage` |
+| Data | **GraphQL + Apollo** | Single endpoint, `InMemoryCache`, `cache-and-network` background refresh |
+| Nav | **Responsive Navbar** | Separate logged-in/logged-out navbars with `@headlessui/react` animated mobile drawer |
 
 ---
 
@@ -54,23 +57,27 @@ Built from the ground up with a **single GraphQL endpoint** replacing all REST c
 
 | Role | Package | Version |
 |---|---|---|
-| API Server | graphql-yoga | 5.x |
+| Schema Builder | graphql-yoga (`createSchema`) | 5.x |
+| Runtime Executor | graphql | 16.x |
 | Client | Apollo Client | 4.x |
-| Query Language | graphql | 16.x |
-| Reactive Layer | rxjs | 7.x |
+| Reactive Layer | rxjs (Apollo peer dep) | 7.x |
 
 ### UI & Components
 
 | Package | Purpose |
 |---|---|
-| Radix UI | Accessible headless components (checkbox, dropdown, popover) |
-| shadcn/ui | Pre-styled component layer over Radix |
-| TanStack React Table v8 | Headless table (sort, filter, paginate) |
-| react-datepicker | Date selection in forms and admin table |
-| react-hot-toast | Toast notifications |
-| react-icons | Icon library |
-| next-themes | Dark / light mode |
-| Nodemailer | Gmail SMTP email sending |
+| Radix UI | Accessible headless primitives (checkbox, dropdown, popover) |
+| shadcn/ui | Pre-styled layer over Radix (button, table, checkbox, input, dropdown, popover) |
+| TanStack React Table v8 | Headless table engine (sort, filter, paginate, column visibility) |
+| Flowbite React | Modal component for portfolio image gallery |
+| react-datepicker | Date selection in booking form and admin table rows |
+| react-hot-toast | Toast notifications via top-right `Toaster` |
+| react-icons | Icon library (`CgMenu`, `CgClose`, `BsSun`, `BsMoon`) |
+| react-simple-typewriter | Animated typewriter effect in hero Banner |
+| @headlessui/react | `Transition` for animated mobile menu drawer |
+| next-themes | `ThemeProvider` for dark / light mode |
+| Nodemailer | Gmail SMTP — sends branded HTML appointment emails |
+| clsx + tailwind-merge | `cn()` utility for conditional class merging (`lib/utils.js`) |
 
 ---
 
@@ -88,18 +95,22 @@ Built from the ground up with a **single GraphQL endpoint** replacing all REST c
 ┌─────────────────────────────────────────────┐
 │           Next.js 16 App Router             │
 │                                             │
-│  graphql-yoga  ◄──  typeDefs + resolvers    │
+│  graphql pkg  ◄──  typeDefs + resolvers     │
+│  (buffered JSON — no streaming)             │
 │       │                                     │
 │       ├── Query:    appointments            │
 │       ├── Mutation: createAppointment       │
 │       ├── Mutation: createContact           │
 │       └── Mutation: updateAppointmentStatus │
+│                                             │
+│  runtime = "nodejs"  +  force-dynamic       │
 └────────────────────┬────────────────────────┘
                      │ Mongoose ODM
                      ▼
 ┌─────────────────────────────────────────────┐
 │             MongoDB Atlas                    │
-│  Connection pool (readyState check)         │
+│  global._mongoose promise cache             │
+│  bufferCommands: false / timeout: 10s       │
 │  Collections: appointments · contacts       │
 └────────────────────┬────────────────────────┘
                      │ on updateAppointmentStatus
@@ -107,18 +118,20 @@ Built from the ground up with a **single GraphQL endpoint** replacing all REST c
               Nodemailer (Gmail SMTP)
                      │
                      ▼
-            Client Inbox (confirm / reject email)
+            Client Inbox (HTML confirm / reject email)
 ```
 
 > **Single endpoint design** — `/api/graphql` handles every read and write.
-> The only other API route is `/api/auth/[kindeAuth]` for Kinde Auth callbacks.
+> The route uses the `graphql` package directly and returns a fully-buffered `Response.json()` — this avoids the streaming adapter crash that graphql-yoga's `handleRequest` causes on Vercel serverless.
+> The only other API route is `/api/auth/[kindeAuth]` for Kinde Auth OAuth callbacks.
 
 ---
 
 ## GraphQL API
 
 **Endpoint:** `POST /api/graphql`
-**Explorer:** open `/api/graphql` in your browser (graphql-yoga ships a built-in playground)
+**Health check:** `GET /api/graphql` → `{ "status": "ok" }`
+**CORS:** All origins (`*`) with `OPTIONS` preflight handler included.
 
 ### Schema
 
@@ -215,50 +228,57 @@ mutation UpdateAppointmentStatus($_id: ID!, $email: String!, $name: String!, $st
 codify/
 ├── app/
 │   ├── _components/
-│   │   ├── ApolloProvider.js      # "use client" Apollo context wrapper
-│   │   ├── Banner.js
-│   │   ├── Footer.js
-│   │   ├── LoggedInNavbar.js
-│   │   ├── LoggedoutNavbar.js
-│   │   ├── Notification.js
-│   │   ├── sendEmail.js           # Nodemailer — Gmail SMTP
-│   │   ├── Skills.js
-│   │   ├── Technologies.js
-│   │   └── ThemeSwitch.js
+│   │   ├── ApolloProvider.js      # "use client" — wraps app with Apollo context
+│   │   ├── Banner.js              # Typewriter hero (react-simple-typewriter) + hero image
+│   │   ├── Footer.js              # 3-col footer: logo · Company links · Services
+│   │   ├── Life.js                # "A Day at Pixel Infinity" — 6-step workflow checklist
+│   │   ├── LoggedInNavbar.js      # Desktop + mobile nav with Kinde LogoutLink
+│   │   ├── LoggedoutNavbar.js     # Desktop + mobile nav with Kinde LoginLink
+│   │   ├── Notification.js        # react-hot-toast Toaster (top-right)
+│   │   ├── sendEmail.js           # Nodemailer — Gmail SMTP branded HTML emails
+│   │   ├── Skills.js              # 21-skill logo grid from lib/data.skillsData
+│   │   ├── Technologies.js        # 3 expertise cards: Front-end, Back-end, E-commerce
+│   │   └── ThemeSwitch.js         # Fixed bottom-right toggle, localStorage-persisted
 │   │
 │   ├── admin/dashboard/
-│   │   ├── page.js                # Appointment table (useQuery + useMutation)
-│   │   └── loading.js             # Animated skeleton loader
+│   │   ├── page.js                # Full TanStack table — useQuery + useMutation + useMemo + useCallback
+│   │   └── loading.js             # Animated pulse skeleton loader
 │   │
 │   ├── api/
-│   │   ├── auth/[kindeAuth]/route.js   # Kinde Auth handler
-│   │   └── graphql/route.js            # graphql-yoga endpoint
+│   │   ├── auth/[kindeAuth]/route.js   # Kinde Auth OAuth handler
+│   │   └── graphql/route.js            # GraphQL API (Node.js runtime, force-dynamic, CORS)
 │   │
-│   ├── book-appointment/page.js   # Booking form (useMutation)
-│   ├── contact/page.js            # Contact form (useMutation)
-│   ├── portfolio/page.js
-│   ├── about/page.js
-│   ├── protected/page.js          # Auth gate component
-│   ├── layout.js                  # Root layout + ApolloProvider
-│   └── page.js                    # Home page
+│   ├── about/page.js              # Agency description + 4 service cards
+│   ├── book-appointment/page.js   # 5-field booking form (useMutation)
+│   ├── contact/page.js            # 3-field contact form (useMutation) — also in home
+│   ├── portfolio/page.js          # 4 projects + Flowbite Modal image gallery
+│   ├── protected/page.js          # Server component: isAuthenticated() → correct navbar
+│   ├── layout.js                  # Root layout: Inter font · ThemeProvider · ApolloClientProvider
+│   └── page.js                    # Home: Banner + Technologies + Skills + Life + Contact
 │
 ├── lib/
 │   ├── graphql/
-│   │   ├── typeDefs.js            # GraphQL schema definitions
-│   │   └── resolvers.js           # Query + mutation resolvers
+│   │   ├── typeDefs.js            # GraphQL schema (Appointment, ActionResult, MutationResult)
+│   │   └── resolvers.js           # Query + mutations (DB reads, .lean(), sendEmail call)
 │   ├── schema/
-│   │   ├── AppointmentSchema.js   # Mongoose appointment model
-│   │   └── Contact.js             # Mongoose contact model
-│   ├── apolloClient.js            # Apollo Client singleton
-│   ├── Connection.js              # Mongoose connection pool
-│   ├── data.js                    # Static content
-│   └── utils.js
+│   │   ├── AppointmentSchema.js   # Mongoose model: name, email, date, subject, desc, status, isVerifiedByAdmin
+│   │   └── Contact.js             # Mongoose model: name, email, message
+│   ├── apolloClient.js            # Apollo Client singleton (HttpLink → /api/graphql, InMemoryCache)
+│   ├── Connection.js              # Serverless-safe Mongoose pool (global._mongoose promise cache)
+│   ├── data.js                    # Portfolio project screenshot URLs + 21-item skillsData array
+│   └── utils.js                   # cn() — clsx + tailwind-merge
 │
-├── components/ui/                 # shadcn/ui component library
-├── middleware.js                  # Kinde Auth — protects /admin/dashboard
-├── next.config.mjs                # optimizePackageImports enabled
-├── tailwind.config.js
-└── .env.local
+├── components/ui/                 # shadcn/ui components
+│   ├── button.jsx
+│   ├── checkbox.jsx
+│   ├── dropdown-menu.jsx
+│   ├── input.jsx
+│   ├── popover.jsx
+│   └── table.jsx
+│
+├── next.config.mjs                # optimizePackageImports: Radix UI, react-icons, flowbite-react
+├── tailwind.config.js             # darkMode: class · custom mobile/desktop at 1000px · shadcn CSS vars
+└── .env.local                     # MongoDB, Kinde, Gmail SMTP secrets
 ```
 
 ---
@@ -269,24 +289,27 @@ codify/
 
 | What | How | Why |
 |---|---|---|
-| `useMemo` — columns | Column defs memoized with dependency array | Avoids recreating 9 column objects on every render |
-| `useMemo` — tableData | Merges server rows + local date overrides | Recomputes only when Apollo data or datepicker changes |
-| `useCallback` — handlers | `handleDateChange`, `handleStatus` stable refs | Prevents child re-renders caused by new function references |
+| `useMemo` — columns | 9-column definition memoized on `[handleDateChange, handleStatus, mutating]` | Avoids recreating all column objects on every render |
+| `useMemo` — tableData | Merges server rows with local `localDates` map | Recomputes only when Apollo data or datepicker changes |
+| `useCallback` — handlers | `handleDateChange` and `handleStatus` with stable refs | Prevents child re-renders caused by new function references |
 | Apollo `InMemoryCache` | Singleton client, normalized cache | Instant render from cache on page revisit |
 | `cache-and-network` | Serves cache immediately, refetches in background | Zero loading flash on second visit |
-| Skeleton on true first load | `loading && appointments.length === 0` | No skeleton flash during background refreshes |
-| DatePicker `strategy: fixed` | `popperProps={{ strategy: "fixed" }}` | Calendar escapes `overflow: hidden` table without reflow |
-| `optimizePackageImports` | Configured in `next.config.mjs` | Tree-shakes Radix UI, react-icons on server at build time |
+| Smart skeleton guard | `if (loading && appointments.length === 0)` | No skeleton flash during background refreshes |
+| DatePicker `strategy: fixed` | `popperProps={{ strategy: "fixed" }}` + `popperPlacement="bottom-start"` | Calendar escapes `overflow: hidden` table without reflow |
+| `optimizePackageImports` | Configured in `next.config.mjs` | Tree-shakes Radix UI, react-icons, flowbite-react at build time |
 
 ### Server-Side
 
 | What | How | Why |
 |---|---|---|
-| `.lean()` on queries | Mongoose returns plain JS objects | Skips Mongoose document hydration — faster reads |
-| `.select()` projection | Only requested fields fetched from Atlas | Reduces network payload from MongoDB |
-| Connection pooling | `readyState` check before `mongoose.connect()` | Reuses existing connection, no redundant reconnects |
+| `.lean()` on queries | Mongoose returns plain JS objects | Skips hydration overhead — significantly faster reads |
+| `.select()` projection | 8 specific fields fetched from Atlas | Reduces wire payload from MongoDB |
+| Global connection cache | `global._mongoose` promise — reused across warm invocations | No redundant reconnects; `bufferCommands: false` prevents silent hangs |
+| Buffered GraphQL response | Direct `graphql()` call → `Response.json()` | Avoids graphql-yoga streaming adapter crash on Vercel serverless |
+| `force-dynamic` on routes | Admin dashboard + GraphQL API route | Ensures fresh data — never statically cached |
+| `runtime = "nodejs"` | GraphQL API route | Allows Mongoose (Node.js-only) in the serverless function |
 | Single GraphQL endpoint | All ops via `/api/graphql` | No per-feature route overhead, no over-fetching |
-| `refetchQueries` scoped | Only fires after mutations that change data | No unnecessary re-fetches on unrelated renders |
+| `refetchQueries` scoped | Only fires after status mutations | No unnecessary re-fetches on unrelated renders |
 | React 19 concurrent | Automatic batching + concurrent features | Smoother UI under load, fewer layout flushes |
 
 ---
@@ -327,6 +350,8 @@ npm run build
 npm run start
 ```
 
+> **Note:** `--legacy-peer-deps` is required because several packages (react-datepicker, Radix UI, @headlessui/react, next-themes) have not yet updated their peer dependency declarations for React 19.
+
 ---
 
 ## Environment Variables
@@ -360,31 +385,75 @@ sendEmailPass=xxxx xxxx xxxx xxxx
 
 ## Pages
 
-| Route | Page | Auth |
-|---|---|---|
-| `/` | Home — banner, skills, technologies | Public |
-| `/about` | About the agency | Public |
-| `/portfolio` | Project showcase | Public |
-| `/book-appointment` | Appointment booking form | Public |
-| `/contact` | Contact / lead form | Public |
-| `/admin/dashboard` | Appointment management dashboard | **Protected** |
-| `/api/graphql` | GraphQL API (yoga playground available) | Server |
-| `/api/auth/[kindeAuth]` | Kinde Auth callback handler | Server |
+| Route | Page | Auth | Description |
+|---|---|---|---|
+| `/` | Home | Public | Banner · expertise cards · 21 skills · workflow · contact form |
+| `/about` | About | Public | Agency info + 4 service categories |
+| `/portfolio` | Portfolio | Public | 4 projects — click thumbnail to open full image gallery modal |
+| `/book-appointment` | Book Appointment | Public | 5-field form with DatePicker → GraphQL createAppointment |
+| `/contact` | Contact | Public | 3-field form → GraphQL createContact (also embedded in home) |
+| `/admin/dashboard` | Dashboard | **Kinde Auth** | Full appointment management table |
+| `/api/graphql` | GraphQL API | Server | POST operations · GET health check · OPTIONS CORS preflight |
+| `/api/auth/[kindeAuth]` | Kinde Auth | Server | OAuth callback handler |
 
 ---
 
 ## Admin Dashboard
 
-Protected by Kinde Auth middleware (`middleware.js` → matcher: `/admin/dashboard`).
+Authentication is handled server-side by `app/protected/page.js` — it calls `getKindeServerSession().isAuthenticated()` and renders either `LoggedInNavbar` (with Logout button) or `LoggedOutNavbar` (with Admin Login button). Logging in via Kinde redirects to `/admin/dashboard`.
 
 **Capabilities:**
-- Sortable, filterable, paginated appointments table
-- Email column with instant client-side filter
-- Toggle individual column visibility
-- Inline DatePicker per row (fixed-position overlay, never clipped)
-- Confirm or Reject — fires GraphQL mutation + sends email to client automatically
-- Multi-row checkbox selection
-- Background refetch after every mutation — table stays fresh without full reload
+
+- Sortable, filterable, paginated appointments table (TanStack React Table v8)
+- Email column instant client-side filter input
+- Toggle individual column visibility via Filter dropdown
+- Inline DatePicker per row — `strategy: "fixed"` overlay never clipped by table `overflow: hidden`
+- Confirm or Reject via dropdown → fires `updateAppointmentStatus` GraphQL mutation + sends branded HTML email to client automatically
+- Multi-row checkbox selection with select-all
+- Animated pulse skeleton on initial cold load; inline `Loading...` row during background refresh
+- `force-dynamic` export prevents stale static caching
+
+---
+
+## Portfolio Projects
+
+| Project | Gallery Size |
+|---|---|
+| Ecommerce | 4 screenshots |
+| Gym | 8 screenshots |
+| Restaurant | 6 screenshots |
+| Pixel-Infinity-Solutions | 12 screenshots |
+
+---
+
+## Skills (21)
+
+React · Next.js · Node.js · Express · Firebase · MongoDB · Material UI · Bootstrap · Tailwind CSS · Jest · Angular · PHP · Java · Python · Flask · MySQL · WordPress · HTML5 · CSS3 · JavaScript · Git
+
+---
+
+## Vercel Deployment — What Broke & How It Was Fixed
+
+### The Problem: Empty 500 on Vercel, Fine Locally
+
+The `/api/graphql` endpoint worked perfectly in `next dev` and `next start` but returned an empty **HTTP 500** on Vercel with no error body.
+
+**Root cause — graphql-yoga's streaming response:**
+The route originally exported graphql-yoga's `handleRequest` directly. Yoga builds its HTTP response using a *ponyfilled* `Response` whose body is a `ReadableStream` (from `@whatwg-node/fetch`). The local Next.js runtime tolerates streaming bodies, but **Vercel's serverless Lambda runtime cannot serialize them** — so the function crashed silently after the resolver completed and returned a bare 500 with no body.
+
+**The tell-tale sign:** even a `{ __typename }` query — which never touches MongoDB — returned 500, while `OPTIONS` (a bodyless 204 preflight) succeeded. This proved the issue was not the database or resolvers — it was specifically the **response body serialization** that Vercel couldn't handle.
+
+**Why "works on Preview but not Production":** The fix commits only existed locally and hadn't been pushed, so production kept redeploying the old code. Preview picked up the new code first, which is why Preview started passing before Production.
+
+### The Fixes (Applied & on GitHub)
+
+| File | What Changed | Why |
+|---|---|---|
+| `app/api/graphql/route.js` | Replaced yoga's `handleRequest` with direct `graphql()` call → `Response.json(result)` | Buffered JSON body — Vercel can serialize it without a stream adapter |
+| `lib/Connection.js` | Replaced `readyState` check with `global._mongoose` promise cache | Race-safe across concurrent cold starts; `bufferCommands: false` prevents silent hangs |
+| `.npmrc` | Added `legacy-peer-deps=true` | Resolves `@headlessui/react` vs React 19 peer dependency conflict at install time |
+
+The route remains pinned to `runtime = "nodejs"` and `dynamic = "force-dynamic"` — both required for Mongoose to run in the serverless function.
 
 ---
 
@@ -393,8 +462,8 @@ Protected by Kinde Auth middleware (`middleware.js` → matcher: `/admin/dashboa
 | Version | Next.js | React | Notes |
 |---|---|---|---|
 | Initial | 14.1.0 | 18.x | Server Actions for all data ops |
-| Optimized | 14.1.0 | 18.x | GraphQL endpoint, Apollo Client, useMemo/useCallback |
-| **Current** | **16.2.12** | **19.2.8** | Next.js 16, React 19, ESLint 9, Kinde 2.13 |
+| Optimized | 14.1.0 | 18.x | GraphQL endpoint, Apollo Client v4, useMemo/useCallback |
+| **Current** | **16.2.12** | **19.2.8** | Next.js 16, React 19, ESLint 9, Kinde 2.13, global Mongoose promise cache, buffered GraphQL response |
 
 ---
 
@@ -403,5 +472,7 @@ Protected by Kinde Auth middleware (`middleware.js` → matcher: `/admin/dashboa
 Built with Next.js 16 · React 19 · GraphQL · MongoDB Atlas · Tailwind CSS
 
 Toronto, Ontario, Canada
+
+*Demo purposes only — not a registered company website.*
 
 </div>
