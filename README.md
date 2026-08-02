@@ -8,7 +8,7 @@
 
 ---
 
-[Features](#-features) · [Tech Stack](#-tech-stack) · [Architecture](#-architecture) · [GraphQL API](#-graphql-api) · [Project Structure](#-project-structure) · [Performance](#-performance-optimizations) · [Getting Started](#-getting-started) · [Pages](#-pages)
+[Features](#-features) · [Tech Stack](#-tech-stack) · [Architecture](#-architecture) · [GraphQL API](#-graphql-api) · [Project Structure](#-project-structure) · [Performance](#-performance-optimizations) · [Getting Started](#-getting-started) · [Pages](#-pages) · [Admin Dashboard](#-admin-dashboard)
 
 </div>
 
@@ -32,6 +32,7 @@ Built from the ground up with a **single GraphQL endpoint** replacing all REST c
 | Booking | **Appointment System** | 5-field DatePicker form submitted via GraphQL mutation |
 | Contact | **Lead Capture** | 3-field form saved to MongoDB via GraphQL — also embedded in home page |
 | Admin | **Dashboard** | Protected table — sort, filter, paginate, toggle columns, update appointment status |
+| Admin | **Analysis Tab** | Recharts analytics: KPI cards, status donut, monthly stacked bar, day-of-week heatmap, email domain pie, subject frequency |
 | Email | **Auto Notifications** | Confirm/reject triggers branded HTML email to the client via Gmail SMTP |
 | Auth | **Kinde Auth** | Server-side `isAuthenticated()` check renders admin vs public navbar; full login/logout flow |
 | UX | **Dark Mode** | System-aware theme with manual toggle, persisted to `localStorage` |
@@ -61,6 +62,12 @@ Built from the ground up with a **single GraphQL endpoint** replacing all REST c
 | Runtime Executor | graphql | 16.x |
 | Client | Apollo Client | 4.x |
 | Reactive Layer | rxjs (Apollo peer dep) | 7.x |
+
+### Data Visualization
+
+| Package | Purpose |
+|---|---|
+| Recharts | React-native chart library — PieChart, BarChart, ResponsiveContainer, Cell, Legend, Tooltip |
 
 ### UI & Components
 
@@ -241,7 +248,8 @@ codify/
 │   │   └── ThemeSwitch.js         # Fixed bottom-right toggle, localStorage-persisted
 │   │
 │   ├── admin/dashboard/
-│   │   ├── page.js                # Full TanStack table — useQuery + useMutation + useMemo + useCallback
+│   │   ├── page.js                # Tabbed view: Dashboard (TanStack table) + Analysis (charts)
+│   │   ├── DashboardCharts.js     # Recharts analysis — KPI cards, 5 charts, 3 insight callouts
 │   │   └── loading.js             # Animated pulse skeleton loader
 │   │
 │   ├── api/
@@ -276,6 +284,8 @@ codify/
 │   ├── popover.jsx
 │   └── table.jsx
 │
+├── scripts/
+│   └── seed.mjs                   # Seed script — 22 sample appointments (Apr–Sep 2026), run with --env-file
 ├── next.config.mjs                # optimizePackageImports: Radix UI, react-icons, flowbite-react
 ├── tailwind.config.js             # darkMode: class · custom mobile/desktop at 1000px · shadcn CSS vars
 └── .env.local                     # MongoDB, Kinde, Gmail SMTP secrets
@@ -402,7 +412,9 @@ sendEmailPass=xxxx xxxx xxxx xxxx
 
 Authentication is handled server-side by `app/protected/page.js` — it calls `getKindeServerSession().isAuthenticated()` and renders either `LoggedInNavbar` (with Logout button) or `LoggedOutNavbar` (with Admin Login button). Logging in via Kinde redirects to `/admin/dashboard`.
 
-**Capabilities:**
+The dashboard has two tabs — both powered by a single `GET_APPOINTMENTS` Apollo query (no extra network calls).
+
+### Dashboard Tab
 
 - Sortable, filterable, paginated appointments table (TanStack React Table v8)
 - Email column instant client-side filter input
@@ -412,6 +424,51 @@ Authentication is handled server-side by `app/protected/page.js` — it calls `g
 - Multi-row checkbox selection with select-all
 - Animated pulse skeleton on initial cold load; inline `Loading...` row during background refresh
 - `force-dynamic` export prevents stale static caching
+
+### Analysis Tab
+
+Derived entirely from the existing Apollo cache — zero additional GraphQL queries.
+
+**KPI Cards**
+
+| Card | Metric |
+|---|---|
+| Total Bookings | Count + upcoming vs past split |
+| Confirmation Rate | `confirmed / total × 100` — turns amber below 50% |
+| Awaiting Review | Pending count — card turns red when > 0 |
+| Admin Action Rate | `isVerifiedByAdmin / total × 100` |
+
+**Insight Callouts** (text-based, top of analysis view)
+
+| Callout | What it shows |
+|---|---|
+| Peak Booking Month | Month with most appointments + month-over-month delta (▲/▼) |
+| Busiest Day of Week | Day name + count, derived from appointment dates |
+| Top Requested Topic | Most common subject + request count |
+
+**Charts**
+
+| Chart | Type | Insight |
+|---|---|---|
+| Status Distribution | Donut (PieChart) | Confirmed / Rejected / Pending split with % in tooltip |
+| Monthly Bookings by Status | Stacked BarChart | Per-month confirmed/rejected/pending stack — reveals approval trends |
+| Appointments by Day of Week | BarChart | Mon–Sun distribution; peak day highlighted in deep indigo |
+| Client Email Domains | PieChart | Top 5 email providers — corporate vs personal client intel |
+| Top Requested Subjects | Horizontal BarChart | Top 5 topics — signals highest-demand service areas |
+
+### Seed Script
+
+Populate the database with 22 realistic sample appointments for development and demo:
+
+```bash
+node --env-file=.env.local scripts/seed.mjs
+```
+
+- Spans April → September 2026 (past + upcoming mix)
+- 13 confirmed · 3 rejected · 6 pending
+- 4 email domains (gmail, outlook, yahoo, proton.me)
+- 9 distinct subjects across all appointments
+- Wednesday peaks in the day-of-week chart (9 bookings)
 
 ---
 
@@ -462,7 +519,8 @@ The route remains pinned to `runtime = "nodejs"` and `dynamic = "force-dynamic"`
 |---|---|---|---|
 | Initial | 14.1.0 | 18.x | Server Actions for all data ops |
 | Optimized | 14.1.0 | 18.x | GraphQL endpoint, Apollo Client v4, useMemo/useCallback |
-| **Current** | **16.2.12** | **19.2.8** | Next.js 16, React 19, ESLint 9, Kinde 2.13, global Mongoose promise cache, buffered GraphQL response |
+| Production | 16.2.12 | 19.2.8 | Next.js 16, React 19, ESLint 9, Kinde 2.13, global Mongoose promise cache, buffered GraphQL response |
+| **Current** | **16.2.12** | **19.2.8** | Admin dashboard split into Dashboard + Analysis tabs; Recharts data visualization (5 charts, KPI cards, insight callouts); seed script |
 
 ---
 

@@ -5,7 +5,8 @@
       "Bash(node:*)",
       "Bash(nslookup:*)",
       "Bash(npm show:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(npx next:*)"
     ]
   }
 }
