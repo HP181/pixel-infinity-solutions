@@ -485,7 +485,7 @@ node --env-file=.env.local scripts/seed.mjs
 
 ## Skills (21)
 
-React · Next.js · Node.js · Express · MongoDB · Mongoose · GraphQL · GraphQL-Yoga · Apollo · Kinde · Nodemailer · React-Hook-Form · RXJS · Zod · Material UI · Tailwind CSS · Jest · HTML5 · CSS3 · JavaScript · Git · Vercel
+React · Next.js · Node.js · Express · MongoDB · Mongoose · GraphQL · GraphQL-Yoga · Apollo · Kinde · Nodemailer · React-Hook-Form · RXJS · Zod · Recharts · Data Analysis · Material UI · Tailwind CSS · Jest · HTML5 · CSS3 · JavaScript · Git · Vercel
 
 ---
 
